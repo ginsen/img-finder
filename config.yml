@@ -1,0 +1,21 @@
+translate:
+  dictionary:
+    enable: true
+    path: app/mirutalocal/dictio_es_en.po
+  google_translate:
+    eneable: true
+    token: ~
+    from: es
+    to: en
+
+img_sources:
+  - unsplash
+  - pexels
+
+unsplash:
+  applicationId: ~
+
+pexels:
+  user: ~
+  password: ~
+
