@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Lib;
+namespace ImgFinder\Repository;
 
 use ImgFinder\RequestInterface;
 use ImgFinder\ResponseInterface;

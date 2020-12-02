@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Lib;
+namespace ImgFinder\Translate;
 
 use ImgFinder\RequestInterface;
 
-interface GoogleTranslateInterface
+interface TranslateInterface
 {
     public function findWord(RequestInterface $request): RequestInterface;
-
-    public function isEnabled(): bool;
 }

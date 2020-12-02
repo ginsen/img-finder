@@ -2,15 +2,30 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Lib;
+namespace ImgFinder\Translate;
 
+use ImgFinder\Config;
+use ImgFinder\Exception\DictionaryException;
 use ImgFinder\RequestInterface;
 
-interface DictionaryInterface
+class Dictionary implements TranslateInterface
 {
-    public function findWord(RequestInterface $request): RequestInterface;
+    /** @var string */
+    private $dictionary;
 
-    public function isEnabled(): bool;
+
+    public function __construct(Config $config)
+    {
+        if (!$this->dictionary = $config->getDictionaryFilename()) {
+            throw new DictionaryException('dictionary file not found');
+        }
+    }
+
+
+    public function findWord(RequestInterface $request): RequestInterface
+    {
+        // TODO: Implement findWord() method.
+    }
 }
 
 
@@ -36,6 +51,4 @@ interface DictionaryInterface
 //
 //        return $request->setWords($arr[$words]);
 //    }
-//
-//    public function is
 //}

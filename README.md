@@ -1,12 +1,9 @@
 # img-finder
 App to find images in several public repositories 
 
-interface imgFinder
+## Install
 
-public method search(string $words, int $page, int $elementsPerPage): string;
-
-"[
-  {'url': '...'},
-  {'url': '...'},
-]"
+```bash
+$ composer require ginsen/img-finder
+```
 
