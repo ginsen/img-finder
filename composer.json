@@ -1,0 +1,33 @@
+{
+    "name": "ginsen/img-finder",
+    "description": "App to find images in several public repositories",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.3.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "6.5.*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "2.16.*",
+        "phpunit/phpunit": "8.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ImgFinder\\": "src/ImgFinder/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ImgFinder\\Test\\": "test/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "code-review": "vendor/bin/php-cs-fixer --no-interaction --dry-run --diff -v fix",
+        "code-fixer": "vendor/bin/php-cs-fixer --no-interaction --diff -v fix"
+    }
+}
