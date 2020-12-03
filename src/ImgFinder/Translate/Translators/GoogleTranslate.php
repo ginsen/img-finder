@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Translate;
+namespace ImgFinder\Translate\Translators;
 
 use ImgFinder\Request;
 use ImgFinder\RequestInterface;
+use ImgFinder\Translate\TranslateInterface;
 
 class GoogleTranslate implements TranslateInterface
 {

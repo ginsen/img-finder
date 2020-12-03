@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Translate;
+namespace ImgFinder\Translate\Translators;
 
 use ImgFinder\Exception\DictionaryException;
 use ImgFinder\RequestInterface;
+use ImgFinder\Translate\TranslateInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Translation\Translator as sfTranslator;
+use Symfony\Component\Translation\Translator;
 
 class DictionaryYaml implements TranslateInterface
 {
-    /** @var sfTranslator */
+    /** @var Translator */
     private $dictionary;
 
 
@@ -42,11 +43,11 @@ class DictionaryYaml implements TranslateInterface
 
     /**
      * @param string $filename
-     * @return sfTranslator
+     * @return Translator
      */
-    private function loadTranslator(string $filename): sfTranslator
+    private function loadTranslator(string $filename): Translator
     {
-        $translator = new sfTranslator('es');
+        $translator = new Translator('es');
 
         $translator->addLoader('array', new YamlFileLoader());
         $translator->addResource('array', $filename, 'en');
