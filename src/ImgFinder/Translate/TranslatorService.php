@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ImgFinder\Translate;
 
 use ImgFinder\Config;
@@ -20,7 +22,7 @@ class TranslatorService
     public function __construct(Config $config)
     {
         foreach ($config->getTranslators() as $trans) {
-            $reflection = new ReflectionClass($trans['class']);
+            $reflection          = new ReflectionClass($trans['class']);
             $this->translators[] = $reflection->newInstanceArgs($trans['params']);
         }
     }

@@ -20,5 +20,5 @@ interface RequestInterface
 
     public function getPerPage(): int;
 
-    public function isEqual(RequestInterface $request): bool;
+    public function isEqual(self $request): bool;
 }

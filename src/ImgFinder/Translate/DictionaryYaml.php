@@ -26,7 +26,7 @@ class DictionaryYaml implements TranslateInterface
 
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findWord(RequestInterface $request): RequestInterface
     {
@@ -47,11 +47,11 @@ class DictionaryYaml implements TranslateInterface
     private function loadTranslator(string $filename): sfTranslator
     {
         $translator = new sfTranslator('es');
-        
+
         $translator->addLoader('array', new YamlFileLoader());
         $translator->addResource('array', $filename, 'en');
         $translator->setFallbackLocales(['en']);
-        
+
         return $translator;
     }
 }

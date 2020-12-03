@@ -15,7 +15,7 @@ class GoogleTranslate implements TranslateInterface
 
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findWord(RequestInterface $request): RequestInterface
     {
