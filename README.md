@@ -11,10 +11,17 @@ $ composer require ginsen/img-finder
 
 ```yaml
 translators:
-  - {class: 'ImgFinder\Translate\DictionaryYaml', params: {filename: img-finder/doc/examples/dictionary.yml}}
-  - {class: 'ImgFinder\Translate\GoogleTranslate', params: {credentials: foo, from: es, to: es }}
+  ImgFinder\Translate\Translators\DictionaryYaml:
+    params:
+      filename: img-finder/doc/examples/dictionary.yml
+  ImgFinder\Translate\Translators\GoogleTranslate:
+    params:
+      credentials: your-credentials
+      from: es
+      to: es
 
 repositories:
-  - {class: 'ImgFinder\Repository\UnsplashRepository', params: {applicationId: ~}}
-  - {class: 'ImgFinder\Repository\PexelsRepository', params: {user: ~, password: ~}}
+  ImgFinder\Repository\Repositories\PexelsRepository:
+    params:
+      authorization: your-authorization  # Visit https://www.pexels.com/es-es/api/new/
 ```

@@ -23,8 +23,8 @@ class RepositoryService
      */
     public function __construct(Config $config)
     {
-        foreach ($config->getRepositories() as $repo) {
-            $reflection           = new ReflectionClass($repo['class']);
+        foreach ($config->getRepositories() as $class => $repo) {
+            $reflection           = new ReflectionClass($class);
             $this->repositories[] = $reflection->newInstanceArgs($repo['params']);
         }
     }

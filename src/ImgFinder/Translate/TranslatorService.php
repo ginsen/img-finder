@@ -21,8 +21,8 @@ class TranslatorService
      */
     public function __construct(Config $config)
     {
-        foreach ($config->getTranslators() as $trans) {
-            $reflection          = new ReflectionClass($trans['class']);
+        foreach ($config->getTranslators() as $class => $trans) {
+            $reflection          = new ReflectionClass($class);
             $this->translators[] = $reflection->newInstanceArgs($trans['params']);
         }
     }
