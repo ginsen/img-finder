@@ -13,6 +13,10 @@ use ImgFinder\ResponseInterface;
 
 class PexelsRepository implements ImgRepositoryInterface
 {
+    const PHOTOS = 'photos';
+    const SRC    = 'src';
+
+
     /** @var string */
     private $authorization;
 
@@ -29,14 +33,10 @@ class PexelsRepository implements ImgRepositoryInterface
 
     public function findImages(RequestInterface $request): ResponseInterface
     {
-        try {
-            $url  = $this->makeUrl($request);
-            $data = $this->doHttpRequest($url);
+        $url  = $this->makeUrl($request);
+        $data = $this->doHttpRequest($url);
 
-            return $this->createResponse($data, $request->getOrientation());
-        } catch (Exception $exception) {
-            return Response::fromUrls([]);
-        }
+        return $this->createResponse($data, $request->getOrientation());
     }
 
 
@@ -44,7 +44,7 @@ class PexelsRepository implements ImgRepositoryInterface
      * @param RequestInterface $request
      * @return string
      */
-    public function makeUrl(RequestInterface $request): string
+    private function makeUrl(RequestInterface $request): string
     {
         return sprintf(
             'https://api.pexels.com/v1/search?query=%s&page=%d&per_page=%d&orientation=%s',
@@ -60,13 +60,11 @@ class PexelsRepository implements ImgRepositoryInterface
      * @param string $url
      * @return iterable
      */
-    public function doHttpRequest(string $url): iterable
+    private function doHttpRequest(string $url): iterable
     {
         try {
             $res = $this->httpClient->get($url, [
-                'headers' => [
-                    'Authorization' => $this->authorization,
-                ],
+                'headers' => ['Authorization' => $this->authorization],
             ]);
 
             $json = (string) $res->getBody();
@@ -80,10 +78,14 @@ class PexelsRepository implements ImgRepositoryInterface
 
     private function createResponse(iterable $data, string $orientation): ResponseInterface
     {
+        if (empty($data)) {
+            return Response::fromUrls([]);
+        }
+
         $urls = [];
 
-        foreach ($data['photos'] as $photo) {
-            $urls[] = $photo['src'][$orientation];
+        foreach ($data[self::PHOTOS] as $photo) {
+            $urls[] = $photo[self::SRC][$orientation];
         }
 
         return Response::fromUrls($urls);
