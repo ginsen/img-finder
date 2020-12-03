@@ -6,17 +6,14 @@ namespace ImgFinder;
 
 class Config
 {
-    const TRANSLATE        = 'translate';
-    const DICTIONARY       = 'dictionary';
-    const GOOGLE_TRANSLATE = 'google_translate';
-    const ENABLE           = 'enable';
-    const PATH             = 'path';
-    const CREDENTIALS      = 'credentials';
-    const REPOSITORIES     = 'repositories';
+    const TRANSLATORS  = 'translators';
+    const REPOSITORIES = 'repositories';
 
+    /** @var iterable */
+    private $translates;
 
-    /** @var iterable|array */
-    private $config;
+    /** @var iterable */
+    private $repositories;
 
 
     /**
@@ -25,81 +22,31 @@ class Config
      */
     public static function fromYml(string $filename): self
     {
-        $instance         = new static();
-        $instance->config = yaml_parse_file($filename);
+        $config   = yaml_parse_file($filename);
+        $instance = new static();
+
+        $instance->translates   = $config[self::TRANSLATORS];
+        $instance->repositories = $config[self::REPOSITORIES];
 
         return $instance;
     }
 
 
     /**
-     * @return bool
+     * @return iterable
      */
-    public function useDictionary(): bool
+    public function getTranslators(): iterable
     {
-        return true === @$this->config[self::TRANSLATE][self::DICTIONARY][self::ENABLE];
+        return $this->translates;
     }
 
 
     /**
-     * @return string|null
-     */
-    public function getDictionaryFilename(): ?string
-    {
-        if (empty(@$this->config[self::TRANSLATE][self::DICTIONARY][self::PATH])) {
-            return null;
-        }
-
-        return $this->config[self::TRANSLATE][self::DICTIONARY][self::PATH];
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function useGoogleTranslate(): bool
-    {
-        return true === @$this->config[self::TRANSLATE][self::GOOGLE_TRANSLATE][self::ENABLE];
-    }
-
-
-    /**
-     * @return iterable|null
-     */
-    public function getCredentialsGoogleTranslate(): ?iterable
-    {
-        if (empty(@$this->config[self::TRANSLATE][self::GOOGLE_TRANSLATE][self::CREDENTIALS])) {
-            return null;
-        }
-
-        return $this->config[self::TRANSLATE][self::GOOGLE_TRANSLATE][self::CREDENTIALS];
-    }
-
-
-    /**
-     * @return array
+     * @return iterable
      */
     public function getRepositories(): iterable
     {
-        if (empty($this->config[self::REPOSITORIES])) {
-            return [];
-        }
-
-        return $this->config[self::REPOSITORIES];
-    }
-
-
-    /**
-     * @param string $name
-     * @return iterable|null
-     */
-    public function getRepository(string $name): ?iterable
-    {
-        if (empty($this->config[self::REPOSITORIES][$name])) {
-            return null;
-        }
-
-        return $this->config[self::REPOSITORIES][$name];
+        return $this->repositories;
     }
 
 

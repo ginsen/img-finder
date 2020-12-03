@@ -63,6 +63,12 @@ class Request implements RequestInterface
     }
 
 
+    public function isEqual(RequestInterface $request): bool
+    {
+        return $this === $request;
+    }
+
+
     private function __construct()
     {
     }

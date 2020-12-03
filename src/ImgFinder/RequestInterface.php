@@ -19,4 +19,6 @@ interface RequestInterface
     public function getPage(): int;
 
     public function getPerPage(): int;
+
+    public function isEqual(RequestInterface $request): bool;
 }
