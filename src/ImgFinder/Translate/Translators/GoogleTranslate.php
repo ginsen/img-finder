@@ -22,6 +22,8 @@ class GoogleTranslate implements TranslateInterface
     {
         // TODO: Implement findWord() method.
 
-        return Request::fromParams('some test');
+        //return Request::fromParams('some test');
+
+        return $request;
     }
 }
