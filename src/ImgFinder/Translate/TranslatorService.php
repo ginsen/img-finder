@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ImgFinder\Translate;
 
 use ImgFinder\Cache\CacheTranslate;
+use ImgFinder\Cache\TraitServiceApplyCache;
 use ImgFinder\RequestInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
@@ -13,6 +14,8 @@ class TranslatorService
 {
     /** @var TranslateInterface[] */
     private $translators = [];
+
+    use TraitServiceApplyCache;
 
 
     /**
@@ -27,33 +30,14 @@ class TranslatorService
 
         foreach ($translators as $class => $item) {
             $reflection = new ReflectionClass($class);
-            $obj        = $reflection->newInstanceArgs($item['params']);
+            $translate  = $reflection->newInstanceArgs($item['params']);
 
             $instance->translators[] = self::applyCache($item, $cache)
-                ? new CacheTranslate($cache, $obj)
-                : $obj;
+                ? new CacheTranslate($cache, $translate)
+                : $translate;
         }
 
         return $instance;
-    }
-
-
-    /**
-     * @param $item
-     * @param CacheItemPoolInterface|null $cache
-     * @return bool
-     */
-    public static function applyCache($item, ?CacheItemPoolInterface $cache): bool
-    {
-        if (empty($cache)) {
-            return false;
-        }
-
-        if (!empty($item['no_cache'])) {
-            return false;
-        }
-        
-        return true;
     }
 
 
