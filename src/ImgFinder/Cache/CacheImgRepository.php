@@ -56,7 +56,4 @@ class CacheImgRepository extends AbstractCache implements ImgRepositoryInterface
 
         return $response;
     }
-
-
-
 }

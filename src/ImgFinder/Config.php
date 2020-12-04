@@ -11,17 +11,14 @@ use Psr\Cache\CacheItemPoolInterface;
 class Config
 {
     const MAIN         = 'img-finder';
-    const TRANSLATORS  = 'translators';
     const REPOSITORIES = 'repositories';
+    const TRANSLATORS  = 'translators';
 
     /** @var TranslatorService */
     private $translator;
 
     /** @var RepositoryService */
     private $imgRepo;
-
-    /** @var CacheItemPoolInterface|null */
-    private $cache = null;
 
 
     /**

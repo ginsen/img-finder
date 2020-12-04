@@ -10,7 +10,7 @@ use ImgFinder\Translate\TranslateInterface;
 
 class GoogleTranslate implements TranslateInterface
 {
-    const NAME = 'google:translate';
+    const NAME = 'google.translate';
 
 
     public function __construct(string $credentials, string $from, string $to)

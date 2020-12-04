@@ -14,6 +14,6 @@ abstract class AbstractCache
      */
     public function getCacheKey(RequestInterface $request): string
     {
-        return sprintf('%s:%s', $this->getName(), $request->getHash());
+        return sprintf('%s-%s', $this->getName(), $request->getCacheKey());
     }
 }

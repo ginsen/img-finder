@@ -31,7 +31,9 @@ class RepositoryService
             $reflection = new ReflectionClass($class);
             $imgRepo    = $reflection->newInstanceArgs($repo['params']);
 
-            $instance->repositories[] = !empty($cache) ? new CacheImgRepository($cache, $imgRepo) : $imgRepo;
+            $instance->repositories[] = !empty($cache)
+                ? new CacheImgRepository($cache, $imgRepo)
+                : $imgRepo;
         }
 
         return $instance;

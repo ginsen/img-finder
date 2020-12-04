@@ -23,6 +23,8 @@ interface RequestInterface
 
     public function getUrlWords(): string;
 
+    public function getSlugWords(): string;
+
     public function getPage(): int;
 
     public function getPerPage(): int;
@@ -31,5 +33,5 @@ interface RequestInterface
 
     public function isEqual(self $request): bool;
 
-    public function getHash(): string;
+    public function getCacheKey(): string;
 }

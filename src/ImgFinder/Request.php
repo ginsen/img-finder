@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ImgFinder;
 
+use Cocur\Slugify\Slugify;
+
 class Request implements RequestInterface
 {
     const PER_PAGE              = 15;
@@ -21,6 +23,9 @@ class Request implements RequestInterface
 
     /** @var string */
     private $orientation;
+
+    /** @var Slugify */
+    private $slugify;
 
 
     public static function fromParams(
@@ -95,6 +100,12 @@ class Request implements RequestInterface
     }
 
 
+    public function getSlugWords(): string
+    {
+        return $this->slugify->slugify($this->getWords());
+    }
+
+
     public function getPage(): int
     {
         return $this->page;
@@ -119,13 +130,13 @@ class Request implements RequestInterface
     }
 
 
-    public function getHash(): string
+    public function getCacheKey(): string
     {
         return sprintf(
-            '%s:%i:%s:%i',
+            '%s-%d-%s-%d',
             $this->getOrientation(),
             $this->getPerPage(),
-            $this->getUrlWords(),
+            $this->getSlugWords(),
             $this->getPage()
         );
     }
@@ -133,5 +144,6 @@ class Request implements RequestInterface
 
     private function __construct()
     {
+        $this->slugify = new Slugify();
     }
 }

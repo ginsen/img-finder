@@ -12,7 +12,7 @@ use Symfony\Component\Translation\Translator;
 
 class DictionaryYaml implements TranslateInterface
 {
-    const NAME = 'dictionary:yml';
+    const NAME = 'dictionary.yml';
 
     /** @var Translator */
     private $dictionary;
@@ -57,8 +57,8 @@ class DictionaryYaml implements TranslateInterface
     {
         $translator = new Translator('es');
 
-        $translator->addLoader('array', new YamlFileLoader());
-        $translator->addResource('array', $filename, 'en');
+        $translator->addLoader('yaml', new YamlFileLoader());
+        $translator->addResource('yaml', $filename, 'en');
         $translator->setFallbackLocales(['en']);
 
         return $translator;
