@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace ImgFinder\Repository;
 
-use ImgFinder\Config;
+use ImgFinder\Cache\CacheImgRepository;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 
 class RepositoryService
@@ -17,16 +18,23 @@ class RepositoryService
 
 
     /**
-     * RepositoryService constructor.
-     * @param Config $config
+     * @param iterable $repositories
+     * @param CacheItemPoolInterface|null $cache
      * @throws
+     * @return static
      */
-    public function __construct(Config $config)
+    public static function init(iterable $repositories, ?CacheItemPoolInterface $cache): self
     {
-        foreach ($config->getRepositories() as $class => $repo) {
-            $reflection           = new ReflectionClass($class);
-            $this->repositories[] = $reflection->newInstanceArgs($repo['params']);
+        $instance = new static();
+
+        foreach ($repositories as $class => $repo) {
+            $reflection = new ReflectionClass($class);
+            $imgRepo    = $reflection->newInstanceArgs($repo['params']);
+
+            $instance->repositories[] = !empty($cache) ? new CacheImgRepository($cache, $imgRepo) : $imgRepo;
         }
+
+        return $instance;
     }
 
 
@@ -44,5 +52,10 @@ class RepositoryService
         }
 
         return $response;
+    }
+
+
+    private function __construct()
+    {
     }
 }

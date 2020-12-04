@@ -12,4 +12,6 @@ interface ResponseInterface
      * @return iterable|array
      */
     public function toArray(): iterable;
+
+    public function isEmpty(): bool;
 }

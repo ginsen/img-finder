@@ -12,6 +12,8 @@ use Symfony\Component\Translation\Translator;
 
 class DictionaryYaml implements TranslateInterface
 {
+    const NAME = 'dictionary:yml';
+
     /** @var Translator */
     private $dictionary;
 
@@ -23,6 +25,12 @@ class DictionaryYaml implements TranslateInterface
         }
 
         $this->dictionary = $this->loadTranslator($filename);
+    }
+
+
+    public function getName(): string
+    {
+        return self::NAME;
     }
 
 

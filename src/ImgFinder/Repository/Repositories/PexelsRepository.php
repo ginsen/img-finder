@@ -13,6 +13,7 @@ use ImgFinder\ResponseInterface;
 
 class PexelsRepository implements ImgRepositoryInterface
 {
+    const NAME   = 'pexels';
     const PHOTOS = 'photos';
     const SRC    = 'src';
 
@@ -28,6 +29,12 @@ class PexelsRepository implements ImgRepositoryInterface
     {
         $this->authorization = $authorization;
         $this->httpClient    = new Client();
+    }
+
+
+    public function getName(): string
+    {
+        return self::NAME;
     }
 
 
@@ -48,7 +55,7 @@ class PexelsRepository implements ImgRepositoryInterface
     {
         return sprintf(
             'https://api.pexels.com/v1/search?query=%s&page=%d&per_page=%d&orientation=%s',
-            $request->getQueryStr(),
+            $request->getUrlWords(),
             $request->getPage(),
             $request->getPerPage(),
             $request->getOrientation()

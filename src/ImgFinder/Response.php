@@ -22,7 +22,7 @@ class Response implements ResponseInterface
     public function merge(ResponseInterface $response): ResponseInterface
     {
         $urls = $this->toArray();
-        array_push($urls, $response->toArray());
+        array_push($urls, ...$response->toArray());
 
         return self::fromUrls($urls);
     }
@@ -34,6 +34,12 @@ class Response implements ResponseInterface
     public function toArray(): iterable
     {
         return $this->urls;
+    }
+
+
+    public function isEmpty(): bool
+    {
+        return empty($this->urls);
     }
 
 

@@ -16,10 +16,10 @@ class ImgFinder
     private $imgRepo;
 
 
-    public function __construct(TranslatorService $translator, RepositoryService $imgRepo)
+    public function __construct(Config $config)
     {
-        $this->translator = $translator;
-        $this->imgRepo    = $imgRepo;
+        $this->translator = $config->getTranslator();
+        $this->imgRepo    = $config->getRepository();
     }
 
 

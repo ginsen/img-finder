@@ -16,6 +16,9 @@
         "phpunit/phpunit": "8.5.*",
         "symfony/var-dumper": "5.2.*"
     },
+    "suggest": {
+        "symfony/cache": "Needed to request cache"
+    },
     "autoload": {
         "psr-4": {
             "ImgFinder\\": "src/ImgFinder/"

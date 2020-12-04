@@ -4,28 +4,58 @@ declare(strict_types=1);
 
 namespace ImgFinder\Translate;
 
-use ImgFinder\Config;
+use ImgFinder\Cache\CacheTranslate;
 use ImgFinder\RequestInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 
 class TranslatorService
 {
     /** @var TranslateInterface[] */
-    private $translators;
+    private $translators = [];
 
 
     /**
-     * TranslatorService constructor.
-     * @param Config $config
+     * @param iterable                    $translators
+     * @param CacheItemPoolInterface|null $cache
      * @throws
+     * @return static
      */
-    public function __construct(Config $config)
+    public static function init(iterable $translators, ?CacheItemPoolInterface $cache): self
     {
-        foreach ($config->getTranslators() as $class => $trans) {
-            $reflection          = new ReflectionClass($class);
-            $this->translators[] = $reflection->newInstanceArgs($trans['params']);
+        $instance = new static();
+
+        foreach ($translators as $class => $item) {
+            $reflection = new ReflectionClass($class);
+            $obj        = $reflection->newInstanceArgs($item['params']);
+
+            $instance->translators[] = self::applyCache($item, $cache)
+                ? new CacheTranslate($cache, $obj)
+                : $obj;
         }
+
+        return $instance;
     }
+
+
+    /**
+     * @param $item
+     * @param CacheItemPoolInterface|null $cache
+     * @return bool
+     */
+    public static function applyCache($item, ?CacheItemPoolInterface $cache): bool
+    {
+        if (empty($cache)) {
+            return false;
+        }
+
+        if (!empty($item['no_cache'])) {
+            return false;
+        }
+        
+        return true;
+    }
+
 
     public function translate(RequestInterface $request): RequestInterface
     {
@@ -37,5 +67,10 @@ class TranslatorService
         }
 
         return $request;
+    }
+
+
+    private function __construct()
+    {
     }
 }

@@ -9,8 +9,8 @@ interface RequestInterface
     public static function fromParams(
         string $words,
         int $page = 1,
-        int $perPage = 15,
-        string $orientation = 'landscape'
+        int $perPage = Request::PER_PAGE,
+        string $orientation = Request::ORIENTATION_LANDSCAPE
     ): self;
 
     public function setWords(string $words): self;
@@ -21,7 +21,7 @@ interface RequestInterface
 
     public function getWords(): string;
 
-    public function getQueryStr(): string;
+    public function getUrlWords(): string;
 
     public function getPage(): int;
 
@@ -30,4 +30,6 @@ interface RequestInterface
     public function getOrientation(): string;
 
     public function isEqual(self $request): bool;
+
+    public function getHash(): string;
 }

@@ -6,6 +6,10 @@ namespace ImgFinder;
 
 class Request implements RequestInterface
 {
+    const PER_PAGE              = 15;
+    const ORIENTATION_LANDSCAPE = 'landscape';
+
+
     /** @var string */
     private $words;
 
@@ -22,8 +26,8 @@ class Request implements RequestInterface
     public static function fromParams(
         string $words,
         int $page = 1,
-        int $perPage = 15,
-        string $orientation = 'landscape'
+        int $perPage = self::PER_PAGE,
+        string $orientation = self::ORIENTATION_LANDSCAPE
     ): RequestInterface {
         $instance = new static();
 
@@ -84,7 +88,8 @@ class Request implements RequestInterface
         return $this->words;
     }
 
-    public function getQueryStr(): string
+
+    public function getUrlWords(): string
     {
         return urldecode($this->getWords());
     }
@@ -111,6 +116,18 @@ class Request implements RequestInterface
     public function isEqual(RequestInterface $request): bool
     {
         return $this === $request;
+    }
+
+
+    public function getHash(): string
+    {
+        return sprintf(
+            '%s:%i:%s:%i',
+            $this->getOrientation(),
+            $this->getPerPage(),
+            $this->getUrlWords(),
+            $this->getPage()
+        );
     }
 
 
