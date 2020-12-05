@@ -21,6 +21,7 @@ img-finder:
     # Optional
     translators:
         ImgFinder\Translator\DictionaryYaml:
+            no_cache: true
             params:
                 filename: img-finder/doc/examples/yaml_dictionary.yml
 
