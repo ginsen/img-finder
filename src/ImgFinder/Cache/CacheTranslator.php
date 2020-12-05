@@ -6,28 +6,25 @@ namespace ImgFinder\Cache;
 
 use DateInterval;
 use ImgFinder\RequestInterface;
-use ImgFinder\Translate\TranslateInterface;
+use ImgFinder\Translator\TranslatorInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
-class CacheTranslate extends AbstractCache implements TranslateInterface
+class CacheTranslator extends AbstractCache implements TranslatorInterface
 {
     /** @var CacheItemPoolInterface */
     private $cache;
 
-    /** @var TranslateInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
 
-    public function __construct(CacheItemPoolInterface $cache, TranslateInterface $translator)
+    public function __construct(CacheItemPoolInterface $cache, TranslatorInterface $translator)
     {
         $this->cache      = $cache;
         $this->translator = $translator;
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->translator->getName();
@@ -35,7 +32,9 @@ class CacheTranslate extends AbstractCache implements TranslateInterface
 
 
     /**
-     * {@inheritdoc}
+     * @param RequestInterface $request
+     * @throws
+     * @return RequestInterface
      */
     public function findWord(RequestInterface $request): RequestInterface
     {

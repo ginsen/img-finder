@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Repository\Repositories;
+namespace ImgFinder\Repository;
 
 use Exception;
 use GuzzleHttp\Client;
-use ImgFinder\Repository\ImgRepositoryInterface;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;

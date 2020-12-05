@@ -13,7 +13,7 @@ class RequestTest extends TestCase
      */
     public function it_should_make_valid_instance()
     {
-        $request = Request::fromParams('test');
+        $request = Request::set('test');
 
         self::assertSame('test', $request->getWords());
         self::assertSame(1, $request->getPage());

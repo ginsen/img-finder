@@ -8,10 +8,6 @@ use Cocur\Slugify\Slugify;
 
 class Request implements RequestInterface
 {
-    const PER_PAGE              = 15;
-    const ORIENTATION_LANDSCAPE = 'landscape';
-
-
     /** @var string */
     private $words;
 
@@ -28,11 +24,11 @@ class Request implements RequestInterface
     private $slugify;
 
 
-    public static function fromParams(
+    public static function set(
         string $words,
         int $page = 1,
-        int $perPage = self::PER_PAGE,
-        string $orientation = self::ORIENTATION_LANDSCAPE
+        int $perPage = 10,
+        string $orientation = 'landscape'
     ): RequestInterface {
         $instance = new static();
 
@@ -47,7 +43,7 @@ class Request implements RequestInterface
 
     public function setWords(string $words): RequestInterface
     {
-        return self::fromParams(
+        return self::set(
             $words,
             $this->getPage(),
             $this->getPerPage(),
@@ -58,7 +54,7 @@ class Request implements RequestInterface
 
     public function setPage(int $page): RequestInterface
     {
-        return self::fromParams(
+        return self::set(
             $this->getWords(),
             $page,
             $this->getPerPage(),
@@ -69,7 +65,7 @@ class Request implements RequestInterface
 
     public function setPerPage(int $perPage): RequestInterface
     {
-        return self::fromParams(
+        return self::set(
             $this->getWords(),
             $this->getPage(),
             $perPage,
@@ -77,9 +73,10 @@ class Request implements RequestInterface
         );
     }
 
+
     public function setOrientation(string $orientation): RequestInterface
     {
-        return self::fromParams(
+        return self::set(
             $this->getWords(),
             $this->getPage(),
             $this->getPerPage(),

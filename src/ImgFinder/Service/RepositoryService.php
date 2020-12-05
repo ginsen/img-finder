@@ -2,22 +2,19 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Repository;
+namespace ImgFinder\Service;
 
 use ImgFinder\Cache\CacheImgRepository;
-use ImgFinder\Cache\TraitServiceApplyCache;
+use ImgFinder\Repository\ImgRepositoryInterface;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
 use Psr\Cache\CacheItemPoolInterface;
-use ReflectionClass;
 
-class RepositoryService
+class RepositoryService extends AbstractService
 {
     /** @var ImgRepositoryInterface[] */
     private $repositories;
-
-    use TraitServiceApplyCache;
 
 
     /**
@@ -31,10 +28,9 @@ class RepositoryService
         $instance = new static();
 
         foreach ($repositories as $class => $item) {
-            $reflection = new ReflectionClass($class);
-            $imgRepo    = $reflection->newInstanceArgs($item['params']);
+            $imgRepo = self::makeInstance($class, $item['params']);
 
-            $instance->repositories[] = self::applyCache($item, $cache)
+            $instance->repositories[] = self::hasCache($item, $cache)
                 ? new CacheImgRepository($cache, $imgRepo)
                 : $imgRepo;
         }

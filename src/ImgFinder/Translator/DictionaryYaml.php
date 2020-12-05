@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Translate\Translators;
+namespace ImgFinder\Translator;
 
 use ImgFinder\Exception\DictionaryException;
 use ImgFinder\RequestInterface;
-use ImgFinder\Translate\TranslateInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
 
-class DictionaryYaml implements TranslateInterface
+class DictionaryYaml implements TranslatorInterface
 {
-    const NAME = 'dictionary.yml';
+    const NAME = 'dictionary-yml';
 
     /** @var Translator */
     private $dictionary;
@@ -34,9 +33,6 @@ class DictionaryYaml implements TranslateInterface
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
     public function findWord(RequestInterface $request): RequestInterface
     {
         $wordTrans = $this->dictionary->trans($request->getWords());

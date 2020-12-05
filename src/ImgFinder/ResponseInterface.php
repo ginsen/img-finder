@@ -8,10 +8,7 @@ interface ResponseInterface
 {
     public function merge(self $response): self;
 
-    /**
-     * @return iterable|array
-     */
-    public function toArray(): iterable;
+    public function toArray(): array;
 
     public function isEmpty(): bool;
 }

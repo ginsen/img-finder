@@ -28,10 +28,7 @@ class Response implements ResponseInterface
     }
 
 
-    /**
-     * @return array
-     */
-    public function toArray(): iterable
+    public function toArray(): array
     {
         return $this->urls;
     }

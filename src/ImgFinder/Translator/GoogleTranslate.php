@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Translate\Translators;
+namespace ImgFinder\Translator;
 
-use ImgFinder\Request;
 use ImgFinder\RequestInterface;
-use ImgFinder\Translate\TranslateInterface;
 
-class GoogleTranslate implements TranslateInterface
+class GoogleTranslate implements TranslatorInterface
 {
-    const NAME = 'google.translate';
+    const NAME = 'google-translate';
 
 
     public function __construct(string $credentials, string $from, string $to)
@@ -24,9 +22,6 @@ class GoogleTranslate implements TranslateInterface
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
     public function findWord(RequestInterface $request): RequestInterface
     {
         // TODO: Implement findWord() method.

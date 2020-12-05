@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ImgFinder;
 
-use ImgFinder\Repository\RepositoryService;
-use ImgFinder\Translate\TranslatorService;
+use ImgFinder\Service\RepositoryService;
+use ImgFinder\Service\TranslatorService;
 use Psr\Cache\CacheItemPoolInterface;
 
 class Config
@@ -43,19 +43,12 @@ class Config
     }
 
 
-
-    /**
-     * @return TranslatorService
-     */
     public function getTranslator(): TranslatorService
     {
         return $this->translator;
     }
 
 
-    /**
-     * @return RepositoryService
-     */
     public function getRepository(): RepositoryService
     {
         return $this->imgRepo;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ImgFinder;
 
-use ImgFinder\Repository\RepositoryService;
-use ImgFinder\Translate\TranslatorService;
+use ImgFinder\Service\RepositoryService;
+use ImgFinder\Service\TranslatorService;
 
 class ImgFinder
 {

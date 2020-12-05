@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ImgFinder\Cache;
 
 use DateInterval;
@@ -32,8 +34,8 @@ class CacheImgRepository extends AbstractCache implements ImgRepositoryInterface
 
     /**
      * @param RequestInterface $request
-     * @return ResponseInterface
      * @throws
+     * @return ResponseInterface
      */
     public function findImages(RequestInterface $request): ResponseInterface
     {

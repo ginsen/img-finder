@@ -6,11 +6,11 @@ namespace ImgFinder;
 
 interface RequestInterface
 {
-    public static function fromParams(
+    public static function set(
         string $words,
         int $page = 1,
-        int $perPage = Request::PER_PAGE,
-        string $orientation = Request::ORIENTATION_LANDSCAPE
+        int $perPage = 10,
+        string $orientation = 'landscape'
     ): self;
 
     public function setWords(string $words): self;
@@ -18,6 +18,8 @@ interface RequestInterface
     public function setPage(int $page): self;
 
     public function setPerPage(int $perPage): self;
+
+    public function setOrientation(string $orientation): self;
 
     public function getWords(): string;
 
