@@ -25,4 +25,9 @@
             <directory>src</directory>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-clover" target="./var/phpunit/test-clover.xml" />
+        <log type="junit"           target="./var/phpunit/test-junit.xml" />
+    </logging>
 </phpunit>

@@ -6,6 +6,7 @@ namespace ImgFinder\Repository;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
@@ -20,7 +21,7 @@ class PexelsRepository implements ImgRepositoryInterface
     /** @var string */
     private $authorization;
 
-    /** @var Client */
+    /** @var ClientInterface */
     private $httpClient;
 
 

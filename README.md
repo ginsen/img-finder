@@ -1,5 +1,5 @@
 # img-finder
-App to find images in several public repositories 
+PHP Library to find images in several public repositories 
 
 ## Install
 
@@ -27,9 +27,9 @@ img-finder:
 
         ImgFinder\Translator\GoogleTranslate:
             params:
-                credentials: your-credentials
+                apikey: your-credentials
                 from: es
-                to: es
+                to: en
 ```
 And replace your credentials for use your contract services and delete the repositories that do not have 
 credentials for their use.

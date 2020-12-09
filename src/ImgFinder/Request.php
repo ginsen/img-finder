@@ -93,13 +93,13 @@ class Request implements RequestInterface
 
     public function getUrlWords(): string
     {
-        return urldecode($this->getWords());
+        return urlencode($this->words);
     }
 
 
     public function getSlugWords(): string
     {
-        return $this->slugify->slugify($this->getWords());
+        return $this->slugify->slugify($this->words);
     }
 
 

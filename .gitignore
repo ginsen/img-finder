@@ -13,6 +13,7 @@ TextMate2
 
 ###> img-finder ###
 /vendor/
+/var/
 composer.lock
 config.yml
 ###< img-finder ###
@@ -24,3 +25,8 @@ config.yml
 ###> phpunit/phpunit ###
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> Sonar Scanner ###
+/.scannerwork/
+sonar-project.properties
+###< Sonar Scanner ###

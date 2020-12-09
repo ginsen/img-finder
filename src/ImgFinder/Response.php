@@ -21,10 +21,10 @@ class Response implements ResponseInterface
 
     public function merge(ResponseInterface $response): ResponseInterface
     {
-        $urls = $this->toArray();
-        array_push($urls, ...$response->toArray());
+        $urlList = $this->toArray();
+        array_push($urlList, ...$response->toArray());
 
-        return self::fromUrls($urls);
+        return self::fromUrls($urlList);
     }
 
 
