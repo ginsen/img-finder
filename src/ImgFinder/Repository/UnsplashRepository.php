@@ -75,8 +75,7 @@ class UnsplashRepository implements ImgRepositoryInterface
     private function doHttpRequest(string $url): iterable
     {
         try {
-            $res = $this->httpClient->get($url);
-
+            $res  = $this->httpClient->get($url);
             $json = (string) $res->getBody();
 
             return (array) \GuzzleHttp\json_decode($json, true);

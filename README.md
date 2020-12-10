@@ -25,6 +25,10 @@ img-finder:
         ImgFinder\Repository\PexelsRepository:
             params:
                 authorization: your-authorization  # Visit https://www.pexels.com/es-es/api/new/
+        
+        ImgFinder\Repository\UnsplashRepository:
+            params:
+                authorization: your-authorization  # Visit https://unsplash.com/developers
 
     # Optional
     translators:
