@@ -15,10 +15,10 @@ class Config
     const TRANSLATORS  = 'translators';
 
     /** @var TranslatorService */
-    private $translator;
+    private $translatorService;
 
     /** @var RepositoryService */
-    private $imgRepo;
+    private $repositoryService;
 
 
     /**
@@ -36,8 +36,8 @@ class Config
         $translators  = !empty($conf[self::TRANSLATORS]) ? $conf[self::TRANSLATORS] : [];
         $repositories = !empty($conf[self::REPOSITORIES]) ? $conf[self::REPOSITORIES] : [];
 
-        $instance->translator = TranslatorService::init($translators, $cache);
-        $instance->imgRepo    = RepositoryService::init($repositories, $cache);
+        $instance->translatorService = TranslatorService::init($translators, $cache);
+        $instance->repositoryService = RepositoryService::init($repositories, $cache);
 
         return $instance;
     }
@@ -45,13 +45,19 @@ class Config
 
     public function translator(): TranslatorService
     {
-        return $this->translator;
+        return $this->translatorService;
     }
 
 
     public function repository(): RepositoryService
     {
-        return $this->imgRepo;
+        return $this->repositoryService;
+    }
+
+
+    public function repositoryNames(): iterable
+    {
+        return $this->repositoryService->names();
     }
 
 

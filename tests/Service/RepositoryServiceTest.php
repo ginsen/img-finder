@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Service;
 
 use ImgFinder\Request;
@@ -43,6 +45,30 @@ class RepositoryServiceTest extends TestCase
         $response = $service->findImages($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_should_return_response_when_request_find_images_from_one_repository()
+    {
+        $service  = $this->makeService();
+        $request  = Request::set('test', 'spy-repository');
+        $response = $service->findImages($request);
+
+        self::assertInstanceOf(ResponseInterface::class, $response);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_repository_names()
+    {
+        $service  = $this->makeService();
+
+        self::assertIsArray($service->names());
+        self::assertSame('spy-repository', $service->names()[0]);
     }
 
 

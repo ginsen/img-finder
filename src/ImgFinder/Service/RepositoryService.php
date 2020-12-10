@@ -28,14 +28,20 @@ class RepositoryService extends AbstractService
         $instance = new static();
 
         foreach ($repositories as $class => $item) {
-            $imgRepo = self::makeInstance($class, $item['params']);
+            $params  = !empty($item['params']) ? $item['params'] : [];
+            $imgRepo = self::makeInstance($class, $params);
+            $imgRepo = self::hasCache($item, $cache) ? new CacheImgRepository($cache, $imgRepo) : $imgRepo;
 
-            $instance->repositories[] = self::hasCache($item, $cache)
-                ? new CacheImgRepository($cache, $imgRepo)
-                : $imgRepo;
+            $instance->repositories[$imgRepo->name()] = $imgRepo;
         }
 
         return $instance;
+    }
+
+
+    public function names(): iterable
+    {
+        return array_keys($this->repositories);
     }
 
 
@@ -44,6 +50,32 @@ class RepositoryService extends AbstractService
      * @return ResponseInterface
      */
     public function findImages(RequestInterface $request): ResponseInterface
+    {
+        if ($request->hasRepository()) {
+            return $this->findInOneRepository($request);
+        }
+
+        return $this->findInAllRepositories($request);
+    }
+
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    protected function findInOneRepository(RequestInterface $request): ResponseInterface
+    {
+        $imgRepo = $this->repositories[$request->repository()];
+
+        return $imgRepo->findImages($request);
+    }
+
+
+    /**
+     * @param RequestInterface $request
+     * @return Response|ResponseInterface
+     */
+    protected function findInAllRepositories(RequestInterface $request)
     {
         $response = Response::fromUrls([]);
 

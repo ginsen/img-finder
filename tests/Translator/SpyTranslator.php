@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Translator;
 
 use ImgFinder\RequestInterface;
@@ -10,12 +12,7 @@ class SpyTranslator implements TranslatorInterface
     const NAME = 'spy-translator';
 
 
-    public function __construct(string $apikey)
-    {
-    }
-
-
-    public function getName(): string
+    public function name(): string
     {
         return self::NAME;
     }

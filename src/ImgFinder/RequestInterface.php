@@ -8,6 +8,7 @@ interface RequestInterface
 {
     public static function set(
         string $words,
+        string $repository = null,
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape'
@@ -15,25 +16,31 @@ interface RequestInterface
 
     public function setWords(string $words): self;
 
+    public function setRepository(string $repository): self;
+
     public function setPage(int $page): self;
 
     public function setPerPage(int $perPage): self;
 
     public function setOrientation(string $orientation): self;
 
-    public function getWords(): string;
+    public function words(): string;
 
-    public function getUrlWords(): string;
+    public function urlWords(): string;
 
-    public function getSlugWords(): string;
+    public function slugWords(): string;
 
-    public function getPage(): int;
+    public function hasRepository(): bool;
 
-    public function getPerPage(): int;
+    public function repository(): ?string;
 
-    public function getOrientation(): string;
+    public function page(): int;
+
+    public function perPage(): int;
+
+    public function orientation(): string;
 
     public function isEqual(self $request): bool;
 
-    public function getCacheKey(): string;
+    public function cacheKey(): string;
 }

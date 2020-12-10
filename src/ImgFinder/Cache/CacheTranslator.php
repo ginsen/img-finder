@@ -25,9 +25,9 @@ class CacheTranslator extends AbstractCache implements TranslatorInterface
     }
 
 
-    public function getName(): string
+    public function name(): string
     {
-        return $this->translator->getName();
+        return $this->translator->name();
     }
 
 
@@ -42,7 +42,9 @@ class CacheTranslator extends AbstractCache implements TranslatorInterface
         $item = $this->cache->getItem($key);
 
         if ($item->isHit()) {
-            return unserialize($item->get());
+            $requestCache = unserialize($item->get());
+
+            return $requestCache->setRepository($request->repository());
         }
 
         $newRequest = $this->translator->findWord($request);

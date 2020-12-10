@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use ImgFinder\Config;
@@ -20,5 +22,17 @@ class ConfigTest extends TestCase
         self::assertInstanceOf(Config::class, $config);
         self::assertInstanceOf(RepositoryService::class, $config->repository());
         self::assertInstanceOf(TranslatorService::class, $config->translator());
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_should_return_repository_names()
+    {
+        $yaml   = __DIR__ . '/../doc/examples/config.yml';
+        $config = Config::fromYaml($yaml);
+
+        self::assertSame(['spy-repository'], $config->repositoryNames());
     }
 }

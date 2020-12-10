@@ -17,26 +17,30 @@ abstract class AbstractService
      * @throws
      * @return ImgRepositoryInterface|TranslatorInterface
      */
-    public static function makeInstance(string $class, iterable $params): object
+    public static function makeInstance(string $class, iterable $params = []): object
     {
         $reflection = new ReflectionClass($class);
+
+        if (empty($params)) {
+            return $reflection->newInstance();
+        }
 
         return $reflection->newInstanceArgs($params);
     }
 
 
     /**
-     * @param iterable                    $item
+     * @param iterable|null               $item
      * @param CacheItemPoolInterface|null $cache
      * @return bool
      */
-    public static function hasCache(iterable $item, ?CacheItemPoolInterface $cache): bool
+    public static function hasCache(?iterable $item, ?CacheItemPoolInterface $cache): bool
     {
         if (empty($cache)) {
             return false;
         }
 
-        if (!empty($item['no_cache'])) {
+        if (!empty($item) && !empty($item['no_cache'])) {
             return false;
         }
 

@@ -8,7 +8,7 @@ use ImgFinder\RequestInterface;
 
 interface TranslatorInterface
 {
-    public function getName(): string;
+    public function name(): string;
 
     public function findWord(RequestInterface $request): RequestInterface;
 }

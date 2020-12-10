@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Service;
 
 use ImgFinder\Request;
@@ -51,8 +53,9 @@ class TranslatorServiceTest extends TestCase
      */
     public function makeService(CacheItemPoolInterface $cache = null): TranslatorService
     {
-        $repos = ['Tests\Translator\SpyTranslator' => [
-                'params' => ['apikey' => 'my-credentials'],
+        $repos = [
+            'Tests\Translator\SpyTranslator' => [
+                'no_cache' => true,
             ],
         ];
 

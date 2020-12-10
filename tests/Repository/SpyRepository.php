@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Repository;
 
 use ImgFinder\Repository\ImgRepositoryInterface;
@@ -15,8 +17,7 @@ class SpyRepository implements ImgRepositoryInterface
     {
     }
 
-
-    public function getName(): string
+    public function name(): string
     {
         return self::NAME;
     }

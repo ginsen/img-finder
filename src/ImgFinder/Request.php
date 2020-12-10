@@ -11,6 +11,9 @@ class Request implements RequestInterface
     /** @var string */
     private $words;
 
+    /** @var string|null */
+    private $repository;
+
     /** @var int */
     private $page;
 
@@ -26,6 +29,7 @@ class Request implements RequestInterface
 
     public static function set(
         string $words,
+        string $repository = null,
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape'
@@ -33,6 +37,7 @@ class Request implements RequestInterface
         $instance = new static();
 
         $instance->words       = $words;
+        $instance->repository  = $repository;
         $instance->page        = $page;
         $instance->perPage     = $perPage;
         $instance->orientation = $orientation;
@@ -45,9 +50,21 @@ class Request implements RequestInterface
     {
         return self::set(
             $words,
-            $this->getPage(),
-            $this->getPerPage(),
-            $this->getOrientation()
+            $this->repository(),
+            $this->page(),
+            $this->perPage(),
+            $this->orientation()
+        );
+    }
+
+    public function setRepository(?string $repository): RequestInterface
+    {
+        return self::set(
+            $this->words(),
+            $repository,
+            $this->page(),
+            $this->perPage(),
+            $this->orientation()
         );
     }
 
@@ -55,10 +72,11 @@ class Request implements RequestInterface
     public function setPage(int $page): RequestInterface
     {
         return self::set(
-            $this->getWords(),
+            $this->words(),
+            $this->repository(),
             $page,
-            $this->getPerPage(),
-            $this->getOrientation()
+            $this->perPage(),
+            $this->orientation()
         );
     }
 
@@ -66,10 +84,11 @@ class Request implements RequestInterface
     public function setPerPage(int $perPage): RequestInterface
     {
         return self::set(
-            $this->getWords(),
-            $this->getPage(),
+            $this->words(),
+            $this->repository(),
+            $this->page(),
             $perPage,
-            $this->getOrientation()
+            $this->orientation()
         );
     }
 
@@ -77,45 +96,58 @@ class Request implements RequestInterface
     public function setOrientation(string $orientation): RequestInterface
     {
         return self::set(
-            $this->getWords(),
-            $this->getPage(),
-            $this->getPerPage(),
+            $this->words(),
+            $this->repository(),
+            $this->page(),
+            $this->perPage(),
             $orientation
         );
     }
 
 
-    public function getWords(): string
+    public function words(): string
     {
         return $this->words;
     }
 
 
-    public function getUrlWords(): string
+    public function urlWords(): string
     {
         return urlencode($this->words);
     }
 
 
-    public function getSlugWords(): string
+    public function slugWords(): string
     {
         return $this->slugify->slugify($this->words);
     }
 
 
-    public function getPage(): int
+    public function hasRepository(): bool
+    {
+        return null !== $this->repository;
+    }
+
+
+    public function repository(): ?string
+    {
+        return $this->repository;
+    }
+
+
+    public function page(): int
     {
         return $this->page;
     }
 
 
-    public function getPerPage(): int
+    public function perPage(): int
     {
         return $this->perPage;
     }
 
 
-    public function getOrientation(): string
+    public function orientation(): string
     {
         return $this->orientation;
     }
@@ -127,14 +159,14 @@ class Request implements RequestInterface
     }
 
 
-    public function getCacheKey(): string
+    public function cacheKey(): string
     {
         return sprintf(
             '%s-%d-%s-%d',
-            $this->getOrientation(),
-            $this->getPerPage(),
-            $this->getSlugWords(),
-            $this->getPage()
+            $this->orientation(),
+            $this->perPage(),
+            $this->slugWords(),
+            $this->page()
         );
     }
 

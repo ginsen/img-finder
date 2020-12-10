@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-use ImgFinder\Request;
 use ImgFinder\Config;
 use ImgFinder\ImgFinder;
+use ImgFinder\Request;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
 use ImgFinder\Service\RepositoryService;

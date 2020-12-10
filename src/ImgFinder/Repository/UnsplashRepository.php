@@ -36,7 +36,7 @@ class UnsplashRepository implements ImgRepositoryInterface
     }
 
 
-    public function getName(): string
+    public function name(): string
     {
         return self::NAME;
     }
@@ -60,10 +60,10 @@ class UnsplashRepository implements ImgRepositoryInterface
         return sprintf(
             'https://api.unsplash.com/search/photos?client_id=%s&query=%s&page=%s&per_page=%s&orientation=%s',
             $this->authorization,
-            $request->getUrlWords(),
-            $request->getPage(),
-            $request->getPerPage(),
-            $request->getOrientation()
+            $request->urlWords(),
+            $request->page(),
+            $request->perPage(),
+            $request->orientation()
         );
     }
 

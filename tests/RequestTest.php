@@ -28,10 +28,10 @@ class RequestTest extends TestCase
     {
         $request = Request::set('tests');
 
-        self::assertSame('tests', $request->getWords());
-        self::assertSame(1, $request->getPage());
-        self::assertSame(10, $request->getPerPage());
-        self::assertSame('landscape', $request->getOrientation());
+        self::assertSame('tests', $request->words());
+        self::assertSame(1, $request->page());
+        self::assertSame(10, $request->perPage());
+        self::assertSame('landscape', $request->orientation());
     }
 
 
@@ -46,17 +46,17 @@ class RequestTest extends TestCase
         $request4 = $request3->setPerPage(11);
         $request5 = $request4->setOrientation('portrait');
 
-        self::assertSame('tests', $request1->getWords());
-        self::assertSame('other phrase', $request2->getWords());
+        self::assertSame('tests', $request1->words());
+        self::assertSame('other phrase', $request2->words());
 
-        self::assertSame(1, $request2->getPage());
-        self::assertSame(2, $request3->getPage());
+        self::assertSame(1, $request2->page());
+        self::assertSame(2, $request3->page());
 
-        self::assertSame(10, $request3->getPerPage());
-        self::assertSame(11, $request4->getPerPage());
+        self::assertSame(10, $request3->perPage());
+        self::assertSame(11, $request4->perPage());
 
-        self::assertSame('landscape', $request4->getOrientation());
-        self::assertSame('portrait', $request5->getOrientation());
+        self::assertSame('landscape', $request4->orientation());
+        self::assertSame('portrait', $request5->orientation());
     }
 
 
@@ -81,9 +81,9 @@ class RequestTest extends TestCase
     {
         $request = Request::set('protección crema solar!');
 
-        self::assertSame('protección crema solar!', $request->getWords());
-        self::assertSame('protecci%C3%B3n+crema+solar%21', $request->getUrlWords());
-        self::assertSame('proteccion-crema-solar', $request->getSlugWords());
+        self::assertSame('protección crema solar!', $request->words());
+        self::assertSame('protecci%C3%B3n+crema+solar%21', $request->urlWords());
+        self::assertSame('proteccion-crema-solar', $request->slugWords());
     }
 
 
@@ -94,6 +94,6 @@ class RequestTest extends TestCase
     {
         $request = Request::set('tests');
 
-        self::assertSame('landscape-10-tests-1', $request->getCacheKey());
+        self::assertSame('landscape-10-tests-1', $request->cacheKey());
     }
 }

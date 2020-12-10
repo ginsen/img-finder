@@ -64,7 +64,7 @@ class CacheTranslatorTest extends TestCase
         $translatorCache = new CacheTranslator($cache, $translator);
         $newRequest      = $translatorCache->findWord($request);
 
-        self::assertSame($transRequest->getWords(), $newRequest->getWords());
+        self::assertSame($transRequest->words(), $newRequest->words());
     }
 
 
@@ -108,7 +108,7 @@ class CacheTranslatorTest extends TestCase
     {
         $translator = m::mock(TranslatorInterface::class);
 
-        $translator->shouldReceive('getName')->andReturn('translator');
+        $translator->shouldReceive('name')->andReturn('translator');
         $translator->shouldReceive('findWord')->andReturn($request);
 
         return $translator;

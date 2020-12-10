@@ -20,11 +20,11 @@ class TranslatorService extends AbstractService
         $instance = new static();
 
         foreach ($translators as $class => $item) {
-            $translator = self::makeInstance($class, $item['params']);
+            $params     = !empty($item['params']) ? $item['params'] : [];
+            $translator = self::makeInstance($class, $params);
+            $translator = self::hasCache($item, $cache) ? new CacheTranslator($cache, $translator) : $translator;
 
-            $instance->translators[] = self::hasCache($item, $cache)
-                ? new CacheTranslator($cache, $translator)
-                : $translator;
+            $instance->translators[] = $translator;
         }
 
         return $instance;

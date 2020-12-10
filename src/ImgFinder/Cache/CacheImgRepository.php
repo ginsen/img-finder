@@ -26,9 +26,9 @@ class CacheImgRepository extends AbstractCache implements ImgRepositoryInterface
     }
 
 
-    public function getName(): string
+    public function name(): string
     {
-        return $this->imgRepo->getName();
+        return $this->imgRepo->name();
     }
 
 

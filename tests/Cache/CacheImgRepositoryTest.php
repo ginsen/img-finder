@@ -111,7 +111,7 @@ class CacheImgRepositoryTest extends TestCase
     {
         $imgRepo = m::mock(ImgRepositoryInterface::class);
 
-        $imgRepo->shouldReceive('getName')->andReturn('testRepo');
+        $imgRepo->shouldReceive('name')->andReturn('testRepo');
         $imgRepo->shouldReceive('findImages')->andReturn(Response::fromUrls($urls));
 
         return $imgRepo;

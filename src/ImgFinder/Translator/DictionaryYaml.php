@@ -27,7 +27,7 @@ class DictionaryYaml implements TranslatorInterface
     }
 
 
-    public function getName(): string
+    public function name(): string
     {
         return self::NAME;
     }
@@ -35,9 +35,9 @@ class DictionaryYaml implements TranslatorInterface
 
     public function findWord(RequestInterface $request): RequestInterface
     {
-        $wordTrans = $this->dictionary->trans($request->getWords());
+        $wordTrans = $this->dictionary->trans($request->words());
 
-        if ($wordTrans === $request->getWords()) {
+        if ($wordTrans === $request->words()) {
             return $request;
         }
 

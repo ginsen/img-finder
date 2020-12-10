@@ -32,7 +32,7 @@ class PexelsRepository implements ImgRepositoryInterface
     }
 
 
-    public function getName(): string
+    public function name(): string
     {
         return self::NAME;
     }
@@ -43,7 +43,7 @@ class PexelsRepository implements ImgRepositoryInterface
         $url  = $this->makeUrl($request);
         $data = $this->doHttpRequest($url);
 
-        return $this->createResponse($data, $request->getOrientation());
+        return $this->createResponse($data, $request->orientation());
     }
 
 
@@ -55,10 +55,10 @@ class PexelsRepository implements ImgRepositoryInterface
     {
         return sprintf(
             'https://api.pexels.com/v1/search?query=%s&page=%d&per_page=%d&orientation=%s',
-            $request->getUrlWords(),
-            $request->getPage(),
-            $request->getPerPage(),
-            $request->getOrientation()
+            $request->urlWords(),
+            $request->page(),
+            $request->perPage(),
+            $request->orientation()
         );
     }
 

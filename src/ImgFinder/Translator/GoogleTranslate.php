@@ -36,7 +36,7 @@ class GoogleTranslate implements TranslatorInterface
     }
 
 
-    public function getName(): string
+    public function name(): string
     {
         return self::NAME;
     }
@@ -58,7 +58,7 @@ class GoogleTranslate implements TranslatorInterface
             $this->apikey,
             $this->from,
             $this->to,
-            $request->getUrlWords()
+            $request->urlWords()
         );
     }
 
@@ -80,7 +80,7 @@ class GoogleTranslate implements TranslatorInterface
     {
         $translated = $data['data']['translations'][0]['translatedText'];
 
-        if ($translated === $request->getWords()) {
+        if ($translated === $request->words()) {
             return $request;
         }
 

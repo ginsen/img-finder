@@ -7,5 +7,3 @@ img-finder:
   # Optional
   translators:
     Tests\Translator\SpyTranslator:
-      params:
-        apikey: my-credentials

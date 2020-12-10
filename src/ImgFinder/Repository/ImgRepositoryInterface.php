@@ -9,7 +9,7 @@ use ImgFinder\ResponseInterface;
 
 interface ImgRepositoryInterface
 {
-    public function getName(): string;
+    public function name(): string;
 
     public function findImages(RequestInterface $request): ResponseInterface;
 }
