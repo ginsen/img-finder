@@ -70,7 +70,7 @@ class UnsplashRepository implements ImgRepositoryInterface
 
     /**
      * @param string $url
-     * @return iterable
+     * @return iterable|array
      */
     private function doHttpRequest(string $url): iterable
     {
@@ -79,7 +79,7 @@ class UnsplashRepository implements ImgRepositoryInterface
 
             $json = (string) $res->getBody();
 
-            return \GuzzleHttp\json_decode($json, true);
+            return (array) \GuzzleHttp\json_decode($json, true);
         } catch (Exception $exception) {
             return [];
         }
