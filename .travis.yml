@@ -10,9 +10,11 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-before_script:
-  - printf "\n" | pecl install yaml
+before_install:
+  - pecl install yaml
   - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+before_script:
   - git config --global user.email test@test.com
   - git config --global user.name "Test User"
   - composer self-update
