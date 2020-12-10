@@ -1,0 +1,29 @@
+<?php
+
+namespace Tests\Repository;
+
+use ImgFinder\Repository\ImgRepositoryInterface;
+use ImgFinder\RequestInterface;
+use ImgFinder\Response;
+use ImgFinder\ResponseInterface;
+
+class SpyRepository implements ImgRepositoryInterface
+{
+    const NAME = 'spy-repository';
+
+    public function __construct(string $authorization)
+    {
+    }
+
+
+    public function getName(): string
+    {
+        return self::NAME;
+    }
+
+
+    public function findImages(RequestInterface $request): ResponseInterface
+    {
+        return Response::fromUrls([]);
+    }
+}

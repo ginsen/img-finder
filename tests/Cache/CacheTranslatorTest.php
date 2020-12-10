@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Cache;
+namespace Tests\Cache;
 
+use ImgFinder\Cache\CacheTranslator;
 use ImgFinder\Request;
 use ImgFinder\RequestInterface;
 use ImgFinder\Translator\TranslatorInterface;

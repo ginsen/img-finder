@@ -18,8 +18,8 @@ class ImgFinder
 
     public function __construct(Config $config)
     {
-        $this->translator = $config->getTranslator();
-        $this->imgRepo    = $config->getRepository();
+        $this->translator = $config->translator();
+        $this->imgRepo    = $config->repository();
     }
 
 

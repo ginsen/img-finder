@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ImgFinder\Cache;
+namespace Tests\Cache;
 
+use ImgFinder\Cache\CacheImgRepository;
 use ImgFinder\Repository\ImgRepositoryInterface;
 use ImgFinder\Request;
 use ImgFinder\Response;
@@ -38,7 +39,7 @@ class CacheImgRepositoryTest extends TestCase
      */
     public function it_should_find_images_without_cache_and_response_urls()
     {
-        $urls    = ['http://some.test'];
+        $urls    = ['http://some.tests'];
         $item    = $this->getItemCache();
         $cache   = $this->getCachePool($item);
         $imgRepo = $this->getImgRepository($urls);
@@ -57,7 +58,7 @@ class CacheImgRepositoryTest extends TestCase
      */
     public function it_should_find_images_from_cache()
     {
-        $urls     = ['http://some.test'];
+        $urls     = ['http://some.tests'];
         $response = Response::fromUrls($urls);
         $item     = $this->getItemCache($response);
         $cache    = $this->getCachePool($item);

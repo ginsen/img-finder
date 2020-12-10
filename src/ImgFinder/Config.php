@@ -43,13 +43,13 @@ class Config
     }
 
 
-    public function getTranslator(): TranslatorService
+    public function translator(): TranslatorService
     {
         return $this->translator;
     }
 
 
-    public function getRepository(): RepositoryService
+    public function repository(): RepositoryService
     {
         return $this->imgRepo;
     }
