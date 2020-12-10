@@ -5,7 +5,6 @@
 [![Latest Unstable Version](https://poser.pugx.org/ginsen/img-finder/v/unstable.svg)](https://packagist.org/packages/ginsen/img-finder)
 [![License](https://poser.pugx.org/ginsen/img-finder/license.svg)](https://packagist.org/packages/ginsen/img-finder)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/build-status/master)
 
 PHP Library to find images in several public repositories 
