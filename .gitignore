@@ -15,7 +15,7 @@ TextMate2
 /vendor/
 /var/
 composer.lock
-config.yml
+/config.yml
 ###< img-finder ###
 
 ###> friendsofphp/php-cs-fixer ###
