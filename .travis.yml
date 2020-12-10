@@ -3,9 +3,6 @@ dist: xenial
 language: php
 
 php:
-  - 7.0
-  - 7.1
-  - 7.2
   - 7.3
   - 7.4
 
@@ -14,12 +11,14 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
+  - printf "\n" | pecl install yaml
+  - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - git config --global user.email test@test.com
   - git config --global user.name "Test User"
   - composer self-update
 
 install:
-  - composer install -o --dev --no-interaction --prefer-source
+  - composer install -o --no-interaction --prefer-source
 
 script:
   - phpunit --coverage-text --coverage-clover=coverage.clover
