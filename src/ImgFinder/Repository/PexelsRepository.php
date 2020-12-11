@@ -83,6 +83,11 @@ class PexelsRepository implements ImgRepositoryInterface
     }
 
 
+    /**
+     * @param iterable|array $data
+     * @param string $orientation
+     * @return ResponseInterface
+     */
     private function createResponse(iterable $data, string $orientation): ResponseInterface
     {
         if (empty($data)) {

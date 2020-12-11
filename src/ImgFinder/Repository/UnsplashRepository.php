@@ -86,7 +86,7 @@ class UnsplashRepository implements ImgRepositoryInterface
 
 
     /**
-     * @param iterable $data
+     * @param iterable|array $data
      * @return ResponseInterface
      */
     private function createResponse(iterable $data): ResponseInterface
