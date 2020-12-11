@@ -63,13 +63,27 @@ $finder = new ImgFinder\ImgFinder($config);
 
 **ImgFinder** is now available to query image repositories, just it only necessary to create a request.
 
+### Request in all repositories
+
 ```php
+// Search in all repositories
 $request = ImgFinder\Request::set('nature');
 // same as:
-$request = ImgFinder\Request::set('nature', 1, 10, 'landscape');
+$request = ImgFinder\Request::set('nature', null, 1, 10, 'landscape');
 ```
 Both requests are the same, **"nature"** is the search term, **1** is the default page, **10** is the number of response
 images for each repository and page, and finally **"landscape"** is the orientation.
+
+### Request to search only in one repository
+
+```php
+// Search in pexels repository
+$request = ImgFinder\Request::set('nature', 'pexels');
+// same as:
+$request = ImgFinder\Request::set('nature', 'pexels', 1, 10, 'landscape');
+```
+
+### Search
 
 Finally you only need to perform the search.
 
