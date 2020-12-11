@@ -10,12 +10,12 @@ before_commands:
   - "composer install --prefer-source"
 
 build:
-  environment:
-    php: 7.3.25
-    pecl_extensions:
-      - yaml
   nodes:
-    coverage:
+    my-test:
+      environment:
+        php: 7.3.25
+        pecl_extensions:
+          - yaml
       tests:
         override:
           - command: phpunit --coverage-clover=test-clover.xml
