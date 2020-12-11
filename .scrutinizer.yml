@@ -24,11 +24,6 @@ build:
             coverage:
               file: var/phpunit/test-clover.xml
               format: php-clover
-    analysis:
-      tests:
-        override:
-          - php-scrutinizer-run
-          - phpcs-run
 
 tools:
   external_code_coverage: false
