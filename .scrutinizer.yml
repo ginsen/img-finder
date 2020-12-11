@@ -7,7 +7,7 @@ filter:
     - "vendor/*"
 
 before_commands:
-  - "composer install --prefer-source"
+  - composer install --prefer-source
 
 build:
   nodes:
@@ -15,13 +15,14 @@ build:
       environment:
         php:
           version: 7.3.25
-          pecl_extensions:
-            - yaml
+      dependencies:
+        before:
+            - pecl install yaml
       tests:
         override:
-          - command: phpunit --coverage-clover=test-clover.xml
+          - command: phpunit --coverage-clover=var/phpunit/test-clover.xml
             coverage:
-              file: test-clover.xml
+              file: var/phpunit/test-clover.xml
               format: php-clover
 
 tools:
