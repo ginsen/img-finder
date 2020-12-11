@@ -20,7 +20,7 @@ build:
           - sudo apt-get install -y libyaml-dev
       tests:
         override:
-          - command: phpunit --coverage-clover=var/phpunit/test-clover.xml
+          - command: vendor/bin/phpunit --coverage-clover=var/phpunit/test-clover.xml
             coverage:
               file: var/phpunit/test-clover.xml
               format: php-clover
