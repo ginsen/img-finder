@@ -3,6 +3,7 @@ filter:
     - "tests/*"
     - "doc/*"
     - "var/*"
+    - "*/Repository/*"
   dependency_paths:
     - "vendor/*"
 
