@@ -12,18 +12,16 @@ before_commands:
 build:
   environment:
     php: 7.3.25
+    pecl_extensions:
+      - yaml
   nodes:
-    analysis:
-      dependencies:
-        before:
-          - sudo apt-get install -y libyaml-dev
     coverage:
       tests:
         override:
-          - command: ./vendor/bin/phpunit
+          - command: phpunit --coverage-clover=test-clover.xml
             coverage:
-              file: var/phpunit/test-clover.xml
-              format: clover
+              file: test-clover.xml
+              format: php-clover
 
 tools:
   external_code_coverage: false
