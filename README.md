@@ -1,6 +1,5 @@
 # img-finder
 
-[![Build Status](https://travis-ci.org/ginsen/img-finder.svg?branch=master)](https://travis-ci.org/ginsen/img-finder)
 [![Latest Stable Version](https://poser.pugx.org/ginsen/img-finder/v/stable.svg)](https://packagist.org/packages/ginsen/img-finder)
 [![Latest Unstable Version](https://poser.pugx.org/ginsen/img-finder/v/unstable.svg)](https://packagist.org/packages/ginsen/img-finder)
 [![License](https://poser.pugx.org/ginsen/img-finder/license.svg)](https://packagist.org/packages/ginsen/img-finder)
