@@ -15,12 +15,20 @@ build:
       environment:
         php:
           version: 7.3.25
+      dependencies:
+        before:
+          - sudo apt-get install -y libyaml
       tests:
         override:
           - command: phpunit --coverage-clover=var/phpunit/test-clover.xml
             coverage:
               file: var/phpunit/test-clover.xml
               format: php-clover
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+          - phpcs-run
 
 tools:
   external_code_coverage: false
