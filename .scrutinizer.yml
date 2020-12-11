@@ -17,7 +17,7 @@ build:
           version: 7.3.25
       dependencies:
         before:
-          - sudo apt-get install -y libyaml
+          - sudo apt-get install -y libyaml-dev
       tests:
         override:
           - command: phpunit --coverage-clover=var/phpunit/test-clover.xml
