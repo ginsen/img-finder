@@ -10,7 +10,13 @@ before_commands:
   - "composer install --prefer-source"
 
 build:
+  environment:
+    php: 7.3.25
   nodes:
+    analysis:
+      dependencies:
+        before:
+          - sudo apt-get install -y libyaml-dev
     coverage:
       tests:
         override:
