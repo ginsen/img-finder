@@ -1,11 +1,11 @@
 # img-finder
 
-[![Latest Stable Version](https://poser.pugx.org/ginsen/img-finder/v/stable.svg)](https://packagist.org/packages/ginsen/img-finder){:target="_blank"}
-[![Latest Unstable Version](https://poser.pugx.org/ginsen/img-finder/v/unstable.svg)](https://packagist.org/packages/ginsen/img-finder){:target="_blank"}
-[![Build Status](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/build-status/master){:target="_blank"}
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/?branch=master){:target="_blank"}
-[![Code Coverage](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/?branch=master){:target="_blank"}
-[![License](https://poser.pugx.org/ginsen/img-finder/license.svg)](https://packagist.org/packages/ginsen/img-finder){:target="_blank"}
+[![Latest Stable Version](https://poser.pugx.org/ginsen/img-finder/v/stable.svg)](https://packagist.org/packages/ginsen/img-finder)
+[![Latest Unstable Version](https://poser.pugx.org/ginsen/img-finder/v/unstable.svg)](https://packagist.org/packages/ginsen/img-finder)
+[![Build Status](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/ginsen/img-finder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ginsen/img-finder/?branch=master)
+[![License](https://poser.pugx.org/ginsen/img-finder/license.svg)](https://packagist.org/packages/ginsen/img-finder)
 
 PHP Library to find images in several public repositories 
 
