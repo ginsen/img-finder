@@ -17,6 +17,8 @@ $ composer require ginsen/img-finder
 
 ## Config file
 
+### With YAML format
+
 Create a configuration file in yaml format, `img-finder.yml`, with the following content:
 
 ```yaml
@@ -43,6 +45,52 @@ img-finder:
                 from: es
                 to: en
 ```
+
+### With PHP format
+
+Create config file with PHP is very similar at YAML, create php file format, as below.
+
+```php
+<?php
+
+use ImgFinder\Repository\PexelsRepository;
+use ImgFinder\Repository\UnsplashRepository;
+use ImgFinder\Translator\DictionaryYaml;
+use ImgFinder\Translator\GoogleTranslate;
+
+$settings = [
+    'img-finder' => [
+        'repositories' => [
+            PexelsRepository::class => [
+                'params' => [
+                    'authorization' => 'your-authorization'  # Visit https://www.pexels.com/es-es/api/new/
+                ]
+            ],
+            UnsplashRepository::class => [
+                'params' => [
+                    'authorization' => 'your-authorization'  # Visit https://unsplash.com/developers
+                ]
+            ]
+        ],
+        'translators' => [
+            DictionaryYaml::class => [
+                'no_cache' => true,
+                'params'   => [
+                    'filename' => 'img-finder/doc/examples/yaml_dictionary.yml'
+                ]
+            ],
+            GoogleTranslate::class => [
+                'params' => [
+                    'apikey' => 'your-credentials',
+                    'from'   => 'es',
+                    'to'     => 'en'
+                ]
+            ]
+        ]
+    ]
+];
+```
+
 And replace your credentials for use your contract services and delete the repositories that do not have 
 credentials for their use.
 
@@ -52,14 +100,42 @@ credentials**, you can configure it to translate the search terms you want to En
 
 ## Use
 
+### With YAML format
 Create a config instance with the created yml file, and inject it into **the main ImgFinder class**.
 
 ```php
-$file   = '/your/path/img-finder.yml';
-$config = ImgFinder\Config::fromYaml($file);
+$file = '/your/path/img-finder.yml';
 
+$config = ImgFinder\Config::fromYaml($file);
 $finder = new ImgFinder\ImgFinder($config);
 ```
+
+### With PHP format
+
+With the PHP config file it is done as follows.
+
+```php
+use ImgFinder\Repository\PexelsRepository;
+
+$settings = [
+    'img-finder' => [
+        'repositories' => [
+            PexelsRepository::class => [
+                'params' => [
+                    'authorization' => 'your-authorization'  # Visit https://www.pexels.com/es-es/api/new/
+                ]
+            ],
+        ],
+        // ...
+    ]
+    //...
+];
+
+$config = ImgFinder\Config::fromArray($settings);
+$finder = new ImgFinder\ImgFinder($config);
+```
+
+## Ready
 
 **ImgFinder** is now available to query image repositories, just it only necessary to create a request.
 
@@ -98,9 +174,9 @@ use ImgFinder\Config;
 use ImgFinder\ImgFinder;
 use ImgFinder\Request;
 
-$file   = '/your/path/img-finder.yml';
-$config = Config::fromYaml($file);
+$file = '/your/path/img-finder.yml';
 
+$config = Config::fromYaml($file);
 $finder = new ImgFinder($config);
 
 $request  = Request::set('nature');
