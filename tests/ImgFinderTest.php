@@ -44,6 +44,19 @@ class ImgFinderTest extends TestCase
 
 
     /**
+     * @test
+     */
+    public function it_should_return_repository_names()
+    {
+        $yaml   = __DIR__ . '/../doc/examples/config.yml';
+        $config = Config::fromYaml($yaml);
+        $finder = new ImgFinder($config);
+
+        self::assertSame(['spy-repository'], $finder->repositories());
+    }
+
+
+    /**
      * @return Config
      */
     public function getConfig(): Config

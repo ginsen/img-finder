@@ -23,10 +23,23 @@ class ImgFinder
     }
 
 
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
     public function search(RequestInterface $request): ResponseInterface
     {
         $request = $this->translator->translate($request);
 
         return $this->imgRepo->findImages($request);
+    }
+
+
+    /**
+     * @return string[]
+     */
+    public function repositories(): iterable
+    {
+        return $this->imgRepo->names();
     }
 }

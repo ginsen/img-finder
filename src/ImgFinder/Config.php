@@ -78,12 +78,6 @@ class Config
     }
 
 
-    public function repositoryNames(): iterable
-    {
-        return $this->repositoryService->names();
-    }
-
-
     private function __construct()
     {
     }

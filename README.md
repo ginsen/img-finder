@@ -199,6 +199,25 @@ $imagesUrls = $response->toArray();
  */
 ```
 
+## Show all public repositories
+
+To show all available repositories.
+
+```php
+...
+
+$finder = new ImgFinder($config);
+$finder->repositories();
+
+/**
+ array:10 [
+  0 => "pexels"
+  1 => "unsplash"
+ ]
+ */
+
+```
+
 ## Cache optional
 
 If you wish, you can cache requests to improve performance and not stress the image repositories.

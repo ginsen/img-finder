@@ -6,7 +6,6 @@
     "require": {
         "php": ">=7.3",
         "ext-json": "*",
-        "ext-yaml": "*",
         "cocur/slugify": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
         "psr/cache": "^1.0",
