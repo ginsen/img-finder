@@ -26,8 +26,6 @@ interface RequestInterface
 
     public function setWords(string $words): self;
 
-    public function setRepository(string $repository): self;
-
     public function setPage(int $page): self;
 
     public function setPerPage(int $perPage): self;
@@ -35,6 +33,8 @@ interface RequestInterface
     public function setOrientation(string $orientation): self;
 
     public function setWidthSmall(int $width): self;
+
+    public function setRepository(string $repository): self;
 
     public function words(): string;
 

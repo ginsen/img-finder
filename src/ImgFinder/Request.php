@@ -66,18 +66,6 @@ class Request implements RequestInterface
         );
     }
 
-    public function setRepository(?string $repository): RequestInterface
-    {
-        return self::set(
-            $this->words(),
-            $this->page(),
-            $this->perPage(),
-            $this->orientation(),
-            $this->widthSmall(),
-            $repository
-        );
-    }
-
 
     public function setPage(int $page): RequestInterface
     {
@@ -113,7 +101,7 @@ class Request implements RequestInterface
             $this->perPage(),
             $orientation,
             $this->widthSmall(),
-            $this->repository(),
+            $this->repository()
         );
     }
 
@@ -126,7 +114,20 @@ class Request implements RequestInterface
             $this->perPage(),
             $this->orientation(),
             $width,
-            $this->repository(),
+            $this->repository()
+        );
+    }
+
+
+    public function setRepository(?string $repository): RequestInterface
+    {
+        return self::set(
+            $this->words(),
+            $this->page(),
+            $this->perPage(),
+            $this->orientation(),
+            $this->widthSmall(),
+            $repository
         );
     }
 
