@@ -7,15 +7,21 @@ namespace ImgFinder\Repository;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use ImgFinder\Payload;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
 
 class PexelsRepository implements ImgRepositoryInterface
 {
-    const NAME   = 'pexels';
-    const PHOTOS = 'photos';
-    const SRC    = 'src';
+    const NAME             = 'pexels';
+    const PHOTOS           = 'photos';
+    const SRC              = 'src';
+    const MEDIUM           = 'medium';
+    const PHOTOGRAPHER     = 'photographer';
+    const PHOTOGRAPHER_URL = 'photographer_url';
+
+    use ThumbnailTrait;
 
 
     /** @var string */
@@ -43,7 +49,7 @@ class PexelsRepository implements ImgRepositoryInterface
         $url  = $this->makeUrl($request);
         $data = $this->doHttpRequest($url);
 
-        return $this->createResponse($data, $request->orientation());
+        return $this->createResponse($data, $request);
     }
 
 
@@ -84,22 +90,30 @@ class PexelsRepository implements ImgRepositoryInterface
 
 
     /**
-     * @param iterable|array $data
-     * @param string $orientation
+     * @param iterable|array   $data
+     * @param RequestInterface $request
      * @return ResponseInterface
      */
-    private function createResponse(iterable $data, string $orientation): ResponseInterface
+    private function createResponse(iterable $data, RequestInterface $request): ResponseInterface
     {
         if (empty($data)) {
             return Response::fromUrls([]);
         }
 
-        $urls = [];
+        $orientation = $request->orientation();
+        $response    = [];
 
         foreach ($data[self::PHOTOS] as $photo) {
-            $urls[] = $photo[self::SRC][$orientation];
+            $thumbnail = $this->thumbnail($photo[self::SRC][self::MEDIUM], $request);
+            $payload   = Payload::build(
+                $photo[self::PHOTOGRAPHER] ?: '',
+                $photo[self::PHOTOGRAPHER_URL] ?: '',
+                $photo[self::SRC][$orientation],
+                $thumbnail
+            );
+            $response[] = $payload->render();
         }
 
-        return Response::fromUrls($urls);
+        return Response::fromUrls($response);
     }
 }

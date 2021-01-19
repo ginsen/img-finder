@@ -23,6 +23,9 @@ class Request implements RequestInterface
     /** @var string */
     private $orientation;
 
+    /** @var int */
+    private $widthSmall;
+
     /** @var Slugify */
     private $slugify;
 
@@ -32,7 +35,8 @@ class Request implements RequestInterface
         string $repository = null,
         int $page = 1,
         int $perPage = 10,
-        string $orientation = 'landscape'
+        string $orientation = 'landscape',
+        int $widthSmall = 320
     ): RequestInterface {
         $instance = new static();
 
@@ -41,6 +45,7 @@ class Request implements RequestInterface
         $instance->page        = $page;
         $instance->perPage     = $perPage;
         $instance->orientation = $orientation;
+        $instance->widthSmall  = $widthSmall;
 
         return $instance;
     }
@@ -53,7 +58,8 @@ class Request implements RequestInterface
             $this->repository(),
             $this->page(),
             $this->perPage(),
-            $this->orientation()
+            $this->orientation(),
+            $this->widthSmall()
         );
     }
 
@@ -64,7 +70,8 @@ class Request implements RequestInterface
             $repository,
             $this->page(),
             $this->perPage(),
-            $this->orientation()
+            $this->orientation(),
+            $this->widthSmall()
         );
     }
 
@@ -76,7 +83,8 @@ class Request implements RequestInterface
             $this->repository(),
             $page,
             $this->perPage(),
-            $this->orientation()
+            $this->orientation(),
+            $this->widthSmall()
         );
     }
 
@@ -88,7 +96,8 @@ class Request implements RequestInterface
             $this->repository(),
             $this->page(),
             $perPage,
-            $this->orientation()
+            $this->orientation(),
+            $this->widthSmall()
         );
     }
 
@@ -100,7 +109,21 @@ class Request implements RequestInterface
             $this->repository(),
             $this->page(),
             $this->perPage(),
-            $orientation
+            $orientation,
+            $this->widthSmall()
+        );
+    }
+
+
+    public function setWidthSmall(int $width): RequestInterface
+    {
+        return self::set(
+            $this->words(),
+            $this->repository(),
+            $this->page(),
+            $this->perPage(),
+            $this->orientation(),
+            $width
         );
     }
 
@@ -150,6 +173,12 @@ class Request implements RequestInterface
     public function orientation(): string
     {
         return $this->orientation;
+    }
+
+
+    public function widthSmall(): int
+    {
+        return $this->widthSmall;
     }
 
 

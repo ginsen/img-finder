@@ -144,11 +144,21 @@ $finder = new ImgFinder\ImgFinder($config);
 ```php
 // Search in all repositories
 $request = ImgFinder\Request::set('nature');
+
 // same as:
-$request = ImgFinder\Request::set('nature', null, 1, 10, 'landscape');
+/**
+ * @param string      $words       The search term
+ * @param string|null $repository  The used repository, if it not defined, search in all repositories
+ * @param int         $page        Page number
+ * @param int         $perPage     Items per page
+ * @param string      $orientation Orientation: 'landscape' or 'portrait', default: 'landscape'
+ * @param int         $widthSmall  Width of small photos, default 320 pixels
+ */
+$request = ImgFinder\Request::set('nature', null, 1, 10, 'landscape', 320);
 ```
 Both requests are the same, **"nature"** is the search term, **1** is the default page, **10** is the number of response
-images for each repository and page, and finally **"landscape"** is the orientation.
+images for each repository and page (null, 'pexels' or 'unsplash'), **"landscape"** is the orientation 
+('landscape' or 'portrait'), and finally **320** is the width for thumbnails.
 
 ### Request to search only in one repository
 
@@ -156,7 +166,7 @@ images for each repository and page, and finally **"landscape"** is the orientat
 // Search in pexels repository
 $request = ImgFinder\Request::set('nature', 'pexels');
 // same as:
-$request = ImgFinder\Request::set('nature', 'pexels', 1, 10, 'landscape');
+$request = ImgFinder\Request::set('nature', 'pexels', 1, 10, 'landscape', 320);
 ```
 
 ### Search
@@ -167,7 +177,7 @@ Finally you only need to perform the search.
 $response = $finder->search($request);
 ```
 
-This is the complete code of the entire operation.
+This is the whole code of the entire operation.
 
 ```php
 use ImgFinder\Config;
@@ -183,19 +193,27 @@ $request  = Request::set('nature');
 $response = $finder->search($request);
 
 $imagesUrls = $response->toArray();
+
+echo json_encode($imagesUrls);
 /**
- array:10 [
-  0 => "https://some-repository/photos/520094.jpeg"
-  1 => "https://some-repository/photos/45824.jpeg"
-  2 => "https://some-repository/photos/5692.jpeg"
-  3 => "https://some-repository/photos/233.jpg"
-  4 => "https://some-repository/photos/327224.jpeg"
-  5 => "https://some-repository/photos/306405.jpeg"
-  6 => "https://some-repository/photos/324264.jpeg"
-  7 => "https://some-repository/photos/28625.jpeg"
-  8 => "https://some-repository/photos/354304.jpeg"
-  9 => "https://some-repository/photos/5001.jpeg"
- ]
+ * [  
+ *    {  
+ *       "author":     "Rodolfo Quirós",
+ *       "url_author": "https://www.pexels.com/@rquiros",
+ *       "photos": {
+ *         "thumbnail": "https://images.pexels.com/photos/2219118/pexels-photo-2219118.jpeg?auto=compress&cs=tinysrgb&h=350&w=320",
+ *         "image":     "https://images.pexels.com/photos/2219118/pexels-photo-2219118.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+ *       }
+ *    },{
+ *       "author":     "Igor Starkov",
+ *       "url_author": "https://unsplash.com/@igorstarkoff",
+ *       "photos": {
+ *         "thumbnail": "https://images.unsplash.com/photo-1595706480968-ca87913ee9c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxODk0OTN8MHwxfHNlYXJjaHwxMHx8YmVhdXR5JTIwZmFjZXxlbnwwfDB8fA&ixlib=rb-1.2.1&q=80&w=320",
+ *         "image":     "https://images.unsplash.com/photo-1595706480968-ca87913ee9c7?ixid=MXwxODk0OTN8MHwxfHNlYXJjaHwxMHx8YmVhdXR5JTIwZmFjZXxlbnwwfDB8fA&ixlib=rb-1.2.1"
+ *       }
+ *    },
+ *    ....
+ * ]
  */
 ```
 

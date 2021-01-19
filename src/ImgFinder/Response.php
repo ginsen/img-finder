@@ -7,13 +7,13 @@ namespace ImgFinder;
 class Response implements ResponseInterface
 {
     /** @var iterable|array */
-    private $urls;
+    private $payload;
 
 
-    public static function fromUrls(iterable $urls): self
+    public static function fromUrls(iterable $payload): self
     {
-        $instance       = new static();
-        $instance->urls = $urls;
+        $instance          = new static();
+        $instance->payload = $payload;
 
         return $instance;
     }
@@ -21,22 +21,22 @@ class Response implements ResponseInterface
 
     public function merge(ResponseInterface $response): ResponseInterface
     {
-        $urlList = $this->toArray();
-        array_push($urlList, ...$response->toArray());
+        $items = $this->toArray();
+        array_push($items, ...$response->toArray());
 
-        return self::fromUrls($urlList);
+        return self::fromUrls($items);
     }
 
 
     public function toArray(): array
     {
-        return $this->urls;
+        return $this->payload;
     }
 
 
     public function isEmpty(): bool
     {
-        return empty($this->urls);
+        return empty($this->payload);
     }
 
 

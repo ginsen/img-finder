@@ -30,6 +30,7 @@ class Config
     public static function fromYaml(string $filename, CacheItemPoolInterface $cache = null): self
     {
         $config = Yaml::parseFile($filename);
+
         return self::boostrap($config, $cache);
     }
 
@@ -37,26 +38,26 @@ class Config
     /**
      * @param iterable|array              $arr
      * @param CacheItemPoolInterface|null $cache
-     * @return Config
+     * @return static
      */
-    public static function fromArray(iterable $arr, CacheItemPoolInterface $cache = null)
+    public static function fromArray(iterable $arr, CacheItemPoolInterface $cache = null): self
     {
         return self::boostrap($arr, $cache);
     }
 
 
     /**
-     * @param $config
+     * @param iterable                    $config
      * @param CacheItemPoolInterface|null $cache
-     * @return Config
+     * @return static
      */
-    private static function boostrap(iterable $config, ?CacheItemPoolInterface $cache): Config
+    private static function boostrap(iterable $config, ?CacheItemPoolInterface $cache): self
     {
         $conf = $config[self::MAIN];
 
         $instance = new static();
 
-        $translators = !empty($conf[self::TRANSLATORS]) ? $conf[self::TRANSLATORS] : [];
+        $translators  = !empty($conf[self::TRANSLATORS]) ? $conf[self::TRANSLATORS] : [];
         $repositories = !empty($conf[self::REPOSITORIES]) ? $conf[self::REPOSITORIES] : [];
 
         $instance->translatorService = TranslatorService::init($translators, $cache);

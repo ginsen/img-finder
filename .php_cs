@@ -38,6 +38,8 @@ $config = PhpCsFixer\Config::create()
         'class_attributes_separation' => false,
         'phpdoc_separation' => false,
         'phpdoc_align' => false,
+        'php_unit_test_annotation' => ['style' => 'annotation'],
+        'php_unit_method_casing' => ['case' => 'snake_case'],
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

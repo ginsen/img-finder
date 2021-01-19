@@ -32,6 +32,7 @@ class RequestTest extends TestCase
         self::assertSame(1, $request->page());
         self::assertSame(10, $request->perPage());
         self::assertSame('landscape', $request->orientation());
+        self::assertSame(320, $request->widthSmall());
     }
 
 
@@ -45,6 +46,7 @@ class RequestTest extends TestCase
         $request3 = $request2->setPage(2);
         $request4 = $request3->setPerPage(11);
         $request5 = $request4->setOrientation('portrait');
+        $request6 = $request4->setWidthSmall(333);
 
         self::assertSame('tests', $request1->words());
         self::assertSame('other phrase', $request2->words());
@@ -57,6 +59,9 @@ class RequestTest extends TestCase
 
         self::assertSame('landscape', $request4->orientation());
         self::assertSame('portrait', $request5->orientation());
+
+        self::assertSame(320, $request5->widthSmall());
+        self::assertSame(333, $request6->widthSmall());
     }
 
 

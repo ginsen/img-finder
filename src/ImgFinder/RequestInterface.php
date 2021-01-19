@@ -6,12 +6,22 @@ namespace ImgFinder;
 
 interface RequestInterface
 {
+    /**
+     * @param string      $words       The search term
+     * @param string|null $repository  The used repository, if it not defined, search in all repositories
+     * @param int         $page        Page number
+     * @param int         $perPage     Items per page
+     * @param string      $orientation Orientation: 'landscape' or 'portrait', default: 'landscape'
+     * @param int         $widthSmall  Width of small photos, default 320 pixels
+     * @return static
+     */
     public static function set(
         string $words,
         string $repository = null,
         int $page = 1,
         int $perPage = 10,
-        string $orientation = 'landscape'
+        string $orientation = 'landscape',
+        int $widthSmall = 300
     ): self;
 
     public function setWords(string $words): self;
@@ -23,6 +33,8 @@ interface RequestInterface
     public function setPerPage(int $perPage): self;
 
     public function setOrientation(string $orientation): self;
+
+    public function setWidthSmall(int $width): self;
 
     public function words(): string;
 
@@ -39,6 +51,8 @@ interface RequestInterface
     public function perPage(): int;
 
     public function orientation(): string;
+
+    public function widthSmall(): int;
 
     public function isEqual(self $request): bool;
 
