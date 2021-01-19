@@ -8,20 +8,20 @@ interface RequestInterface
 {
     /**
      * @param string      $words       The search term
-     * @param string|null $repository  The used repository, if it not defined, search in all repositories
      * @param int         $page        Page number
      * @param int         $perPage     Items per page
      * @param string      $orientation Orientation: 'landscape' or 'portrait', default: 'landscape'
      * @param int         $widthSmall  Width of small photos, default 320 pixels
+     * @param string|null $repository  The used repository, if it not defined, search in all repositories
      * @return static
      */
     public static function set(
         string $words,
-        string $repository = null,
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape',
-        int $widthSmall = 300
+        int $widthSmall = 320,
+        string $repository = null
     ): self;
 
     public function setWords(string $words): self;

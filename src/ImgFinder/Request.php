@@ -11,9 +11,6 @@ class Request implements RequestInterface
     /** @var string */
     private $words;
 
-    /** @var string|null */
-    private $repository;
-
     /** @var int */
     private $page;
 
@@ -26,26 +23,32 @@ class Request implements RequestInterface
     /** @var int */
     private $widthSmall;
 
+    /** @var string|null */
+    private $repository;
+
     /** @var Slugify */
     private $slugify;
 
 
+    /**
+     * {@inheritDoc}
+     */
     public static function set(
         string $words,
-        string $repository = null,
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape',
-        int $widthSmall = 320
+        int $widthSmall = 320,
+        string $repository = null
     ): RequestInterface {
         $instance = new static();
 
         $instance->words       = $words;
-        $instance->repository  = $repository;
         $instance->page        = $page;
         $instance->perPage     = $perPage;
         $instance->orientation = $orientation;
         $instance->widthSmall  = $widthSmall;
+        $instance->repository  = $repository;
 
         return $instance;
     }
@@ -55,11 +58,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $words,
-            $this->repository(),
             $this->page(),
             $this->perPage(),
             $this->orientation(),
-            $this->widthSmall()
+            $this->widthSmall(),
+            $this->repository()
         );
     }
 
@@ -67,11 +70,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
-            $repository,
             $this->page(),
             $this->perPage(),
             $this->orientation(),
-            $this->widthSmall()
+            $this->widthSmall(),
+            $repository
         );
     }
 
@@ -80,11 +83,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
-            $this->repository(),
             $page,
             $this->perPage(),
             $this->orientation(),
-            $this->widthSmall()
+            $this->widthSmall(),
+            $this->repository()
         );
     }
 
@@ -93,11 +96,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
-            $this->repository(),
             $this->page(),
             $perPage,
             $this->orientation(),
-            $this->widthSmall()
+            $this->widthSmall(),
+            $this->repository()
         );
     }
 
@@ -106,11 +109,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
-            $this->repository(),
             $this->page(),
             $this->perPage(),
             $orientation,
-            $this->widthSmall()
+            $this->widthSmall(),
+            $this->repository(),
         );
     }
 
@@ -119,11 +122,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
-            $this->repository(),
             $this->page(),
             $this->perPage(),
             $this->orientation(),
-            $width
+            $width,
+            $this->repository(),
         );
     }
 
@@ -191,9 +194,10 @@ class Request implements RequestInterface
     public function cacheKey(): string
     {
         return sprintf(
-            '%s-%d-%s-%d',
+            '%s-%d-%d-%s-%d',
             $this->orientation(),
             $this->perPage(),
+            $this->widthSmall(),
             $this->slugWords(),
             $this->page()
         );
