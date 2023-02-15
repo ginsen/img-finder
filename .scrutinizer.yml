@@ -15,7 +15,7 @@ build:
     my-test:
       environment:
         php:
-          version: 7.3.25
+          version: 8.0
       dependencies:
         before:
           - sudo apt-get install -y libyaml-dev
