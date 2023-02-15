@@ -47,11 +47,8 @@ class TranslatorServiceTest extends TestCase
     }
 
 
-    /**
-     * @param CacheItemPoolInterface|null $cache
-     * @return TranslatorService
-     */
-    public function makeService(CacheItemPoolInterface $cache = null): TranslatorService
+
+    public function makeService(?CacheItemPoolInterface $cache = null): TranslatorService
     {
         $repos = [
             'Tests\Translator\SpyTranslator' => [

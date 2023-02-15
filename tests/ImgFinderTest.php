@@ -56,9 +56,6 @@ class ImgFinderTest extends TestCase
     }
 
 
-    /**
-     * @return Config
-     */
     public function getConfig(): Config
     {
         $config     = m::mock(Config::class);
@@ -72,9 +69,6 @@ class ImgFinderTest extends TestCase
     }
 
 
-    /**
-     * @return TranslatorService
-     */
     public function translatorService(): TranslatorService
     {
         $translator = m::mock(TranslatorService::class);
@@ -84,9 +78,7 @@ class ImgFinderTest extends TestCase
     }
 
 
-    /**
-     * @return RepositoryService
-     */
+
     public function repository(): RepositoryService
     {
         $repository = m::mock(RepositoryService::class);

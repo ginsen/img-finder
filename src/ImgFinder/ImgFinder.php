@@ -9,11 +9,8 @@ use ImgFinder\Service\TranslatorService;
 
 class ImgFinder
 {
-    /** @var TranslatorService */
-    private $translator;
-
-    /** @var RepositoryService */
-    private $imgRepo;
+    private TranslatorService $translator;
+    private RepositoryService $imgRepo;
 
 
     public function __construct(Config $config)
@@ -23,10 +20,6 @@ class ImgFinder
     }
 
 
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
     public function search(RequestInterface $request): ResponseInterface
     {
         $request = $this->translator->translate($request);

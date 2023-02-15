@@ -8,7 +8,7 @@ use ImgFinder\RequestInterface;
 
 abstract class AbstractCache
 {
-    const ONE_DAY = 'P1D';
+    public const ONE_DAY = 'P1D';
 
 
     public function getCacheKey(RequestInterface $request): string

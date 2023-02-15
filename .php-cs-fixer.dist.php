@@ -1,23 +1,38 @@
 <?php
 
-$config = PhpCsFixer\Config::create()
+/**
+ * @see https://cs.symfony.com/
+ * @see https://cs.symfony.com/doc/config.html
+ * @see https://cs.symfony.com/doc/rules/index.html
+ */
+
+$finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__)
+    ->exclude(['bin', 'config', 'etc', 'public', 'var'])
+    ->ignoreVCS(true)
+    ->files()
+;
+
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'align_multiline_comment' => true,
         'array_syntax' => ['syntax' => 'short'],
-        'binary_operator_spaces' => ['align_double_arrow' => true, 'align_equals' => true],
+        'binary_operator_spaces' => ['operators' => [
+            '='  => 'align_single_space',
+            '=>' => 'align_single_space',
+        ]],
         'blank_line_before_statement' => true,
         'combine_consecutive_unsets' => true,
         'concat_space' => ['spacing' => 'one'],
         'general_phpdoc_annotation_remove' => ['annotations' => ['expectedException', 'expectedExceptionMessage', 'expectedExceptionMessageRegExp']],
         'heredoc_to_nowdoc' => true,
         'list_syntax' => ['syntax' => 'short'],
-        'method_argument_space' => ['ensure_fully_multiline' => true],
         'no_extra_blank_lines' => ['tokens' => ['break', 'continue', 'return', 'throw', 'use', 'parenthesis_brace_block', 'square_brace_block', 'curly_brace_block']],
         'no_null_property_initialization' => true,
-        'no_short_echo_tag' => true,
+        'echo_tag_syntax' => true,
         'no_superfluous_elseif' => true,
         'no_unneeded_curly_braces' => true,
         'no_unneeded_final_method' => true,
@@ -41,18 +56,5 @@ $config = PhpCsFixer\Config::create()
         'php_unit_test_annotation' => ['style' => 'annotation'],
         'php_unit_method_casing' => ['case' => 'snake_case'],
     ])
-    ->setFinder(
-        PhpCsFixer\Finder::create()
-            ->exclude('bin')
-            ->exclude('etc')
-            ->exclude('hooks')
-            ->exclude('public')
-            ->exclude('src/config')
-            ->exclude('var')
-            ->in(__DIR__)
-            ->ignoreVCS(true)
-            ->files()
-    )
+    ->setFinder($finder)
 ;
-
-return $config;

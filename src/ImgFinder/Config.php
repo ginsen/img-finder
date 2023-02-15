@@ -11,22 +11,14 @@ use Symfony\Component\Yaml\Yaml;
 
 class Config
 {
-    const MAIN         = 'img-finder';
-    const REPOSITORIES = 'repositories';
-    const TRANSLATORS  = 'translators';
+    public const MAIN         = 'img-finder';
+    public const REPOSITORIES = 'repositories';
+    public const TRANSLATORS  = 'translators';
 
-    /** @var TranslatorService */
-    private $translatorService;
-
-    /** @var RepositoryService */
-    private $repositoryService;
+    private TranslatorService $translatorService;
+    private RepositoryService $repositoryService;
 
 
-    /**
-     * @param string                      $filename
-     * @param CacheItemPoolInterface|null $cache
-     * @return static
-     */
     public static function fromYaml(string $filename, CacheItemPoolInterface $cache = null): self
     {
         $config = Yaml::parseFile($filename);
@@ -35,22 +27,12 @@ class Config
     }
 
 
-    /**
-     * @param iterable|array              $arr
-     * @param CacheItemPoolInterface|null $cache
-     * @return static
-     */
     public static function fromArray(iterable $arr, CacheItemPoolInterface $cache = null): self
     {
         return self::boostrap($arr, $cache);
     }
 
 
-    /**
-     * @param iterable                    $config
-     * @param CacheItemPoolInterface|null $cache
-     * @return static
-     */
     private static function boostrap(iterable $config, ?CacheItemPoolInterface $cache): self
     {
         $conf = $config[self::MAIN];

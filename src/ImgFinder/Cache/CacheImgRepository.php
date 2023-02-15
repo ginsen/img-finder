@@ -12,17 +12,10 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class CacheImgRepository extends AbstractCache implements ImgRepositoryInterface
 {
-    /** @var ImgRepositoryInterface */
-    private $imgRepo;
-
-    /** @var CacheItemPoolInterface */
-    private $cache;
-
-
-    public function __construct(CacheItemPoolInterface $cache, ImgRepositoryInterface $imgRepo)
-    {
-        $this->cache   = $cache;
-        $this->imgRepo = $imgRepo;
+    public function __construct(
+        private CacheItemPoolInterface $cache,
+        private ImgRepositoryInterface $imgRepo
+    ) {
     }
 
 
@@ -33,9 +26,7 @@ class CacheImgRepository extends AbstractCache implements ImgRepositoryInterface
 
 
     /**
-     * @param RequestInterface $request
      * @throws
-     * @return ResponseInterface
      */
     public function findImages(RequestInterface $request): ResponseInterface
     {

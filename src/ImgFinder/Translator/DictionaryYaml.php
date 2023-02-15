@@ -11,10 +11,9 @@ use Symfony\Component\Translation\Translator;
 
 class DictionaryYaml implements TranslatorInterface
 {
-    const NAME = 'dictionary-yml';
+    private const NAME = 'dictionary-yml';
 
-    /** @var Translator */
-    private $dictionary;
+    private Translator $dictionary;
 
 
     public function __construct(string $filename)

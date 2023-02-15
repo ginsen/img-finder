@@ -12,12 +12,9 @@ use ReflectionClass;
 abstract class AbstractService
 {
     /**
-     * @param string   $class
-     * @param iterable $params
      * @throws
-     * @return ImgRepositoryInterface|TranslatorInterface
      */
-    public static function makeInstance(string $class, iterable $params = []): object
+    public static function makeInstance(string $class, iterable $params = []): TranslatorInterface|ImgRepositoryInterface
     {
         $reflection = new ReflectionClass($class);
 
@@ -29,11 +26,6 @@ abstract class AbstractService
     }
 
 
-    /**
-     * @param iterable|null               $item
-     * @param CacheItemPoolInterface|null $cache
-     * @return bool
-     */
     public static function hasCache(?iterable $item, ?CacheItemPoolInterface $cache): bool
     {
         if (empty($cache)) {

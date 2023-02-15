@@ -11,11 +11,13 @@ use ImgFinder\ResponseInterface;
 
 class SpyRepository implements ImgRepositoryInterface
 {
-    const NAME = 'spy-repository';
+    private const NAME = 'spy-repository';
+
 
     public function __construct(string $authorization)
     {
     }
+
 
     public function name(): string
     {

@@ -5,42 +5,34 @@ declare(strict_types=1);
 namespace ImgFinder\Repository;
 
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use ImgFinder\Payload;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
+use Psr\Http\Client\ClientInterface;
+use Symfony\Component\HttpClient\Psr18Client;
 
 class UnsplashRepository implements ImgRepositoryInterface
 {
-    const NAME      = 'unsplash';
-    const URLS      = 'urls';
-    const RESULTS   = 'results';
-    const RAW       = 'raw';
-    const THUMB     = 'thumb';
-    const USER      = 'user';
-    const USER_NAME = 'name';
-    const LINKS     = 'links';
-    const HTML      = 'html';
+    public const NAME      = 'unsplash';
+    public const URLS      = 'urls';
+    public const RESULTS   = 'results';
+    public const RAW       = 'raw';
+    public const THUMB     = 'thumb';
+    public const USER      = 'user';
+    public const USER_NAME = 'name';
+    public const LINKS     = 'links';
+    public const HTML      = 'html';
+
+    private ClientInterface $httpClient;
 
     use ThumbnailTrait;
 
 
-    /** @var string */
-    private $authorization;
-
-    /** @var ClientInterface */
-    private $httpClient;
-
-
-    /**
-     * @param string authorization
-     */
-    public function __construct(string $authorization)
-    {
-        $this->authorization = $authorization;
-        $this->httpClient    = new Client();
+    public function __construct(
+        private string $authorization
+    ) {
+        $this->httpClient = new Psr18Client();
     }
 
 
@@ -59,10 +51,6 @@ class UnsplashRepository implements ImgRepositoryInterface
     }
 
 
-    /**
-     * @param RequestInterface $request
-     * @return string
-     */
     private function makeUrl(RequestInterface $request): string
     {
         return sprintf(
@@ -77,27 +65,22 @@ class UnsplashRepository implements ImgRepositoryInterface
 
 
     /**
-     * @param string $url
-     * @return iterable|array
+     * @throws
      */
     private function doHttpRequest(string $url): iterable
     {
         try {
-            $res  = $this->httpClient->get($url);
-            $json = (string) $res->getBody();
+            $request  = $this->httpClient->createRequest('GET', $url);
+            $response = $this->httpClient->sendRequest($request);
+            $body     = $response->getBody()->getContents();
 
-            return (array) \GuzzleHttp\json_decode($json, true);
-        } catch (Exception $exception) {
+            return json_decode($body, true);
+        } catch (Exception) {
             return [];
         }
     }
 
 
-    /**
-     * @param iterable|array   $data
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
     private function createResponse(iterable $data, RequestInterface $request): ResponseInterface
     {
         if (empty($data)) {

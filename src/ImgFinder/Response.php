@@ -6,11 +6,10 @@ namespace ImgFinder;
 
 class Response implements ResponseInterface
 {
-    /** @var iterable|array */
-    private $payload;
+    private array $payload;
 
 
-    public static function fromUrls(iterable $payload): self
+    public static function fromUrls(array $payload): self
     {
         $instance          = new static();
         $instance->payload = $payload;

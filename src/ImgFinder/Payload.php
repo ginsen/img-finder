@@ -6,24 +6,17 @@ namespace ImgFinder;
 
 class Payload
 {
-    const AUTHOR     = 'author';
-    const URL_AUTHOR = 'url_author';
-    const PHOTOS     = 'photos';
-    const THUMBNAIL  = 'thumbnail';
-    const IMAGE      = 'image';
+    public const AUTHOR     = 'author';
+    public const URL_AUTHOR = 'url_author';
+    public const PHOTOS     = 'photos';
+    public const THUMBNAIL  = 'thumbnail';
+    public const IMAGE      = 'image';
 
 
-    /** @var string */
-    private $author;
-
-    /** @var string */
-    private $urlAuthor;
-
-    /** @var string */
-    private $urlImage;
-
-    /** @var string */
-    private $thumbnail;
+    private string $author;
+    private string $urlAuthor;
+    private string $urlImage;
+    private string $thumbnail;
 
 
     public static function build(string $author, string $urlAuthor, string $urlImage, string $thumbnail): self
@@ -37,6 +30,7 @@ class Payload
 
         return $instance;
     }
+
 
     public function render(): iterable
     {

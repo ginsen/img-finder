@@ -12,7 +12,7 @@ use Psr\Cache\CacheItemPoolInterface;
 class TranslatorService extends AbstractService
 {
     /** @var TranslatorInterface[] */
-    private $translators = [];
+    private array $translators = [];
 
 
     public static function init(iterable $translators, ?CacheItemPoolInterface $cache): self

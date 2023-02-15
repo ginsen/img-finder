@@ -5,34 +5,23 @@ declare(strict_types=1);
 namespace ImgFinder\Translator;
 
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use ImgFinder\RequestInterface;
+use Psr\Http\Client\ClientInterface;
+use Symfony\Component\HttpClient\Psr18Client;
 
 class GoogleTranslate implements TranslatorInterface
 {
-    const NAME = 'google-translate';
+    private const NAME = 'google-translate';
+
+    private ClientInterface $httpClient;
 
 
-    /** @var string */
-    private $apikey;
-
-    /** @var string */
-    private $from;
-
-    /** @var string */
-    private $to;
-
-    /** @var ClientInterface */
-    private $httpClient;
-
-
-    public function __construct(string $apikey, string $from, string $to)
-    {
-        $this->apikey     = $apikey;
-        $this->from       = $from;
-        $this->to         = $to;
-        $this->httpClient = new Client();
+    public function __construct(
+        private string $apikey,
+        private string $from,
+        private string $to
+    ) {
+        $this->httpClient = new Psr18Client();
     }
 
 
@@ -63,14 +52,18 @@ class GoogleTranslate implements TranslatorInterface
     }
 
 
+    /**
+     * @throws
+     */
     private function doHttpRequest(string $url): iterable
     {
         try {
-            $res  = $this->httpClient->get($url);
-            $json = (string) $res->getBody();
+            $request  = $this->httpClient->createRequest('GET', $url);
+            $response = $this->httpClient->sendRequest($request);
+            $body     = $response->getBody()->getContents();
 
-            return \GuzzleHttp\json_decode($json, true);
-        } catch (Exception $exception) {
+            return json_decode($body, true);
+        } catch (Exception) {
             return [];
         }
     }

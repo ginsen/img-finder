@@ -8,31 +8,15 @@ use Cocur\Slugify\Slugify;
 
 class Request implements RequestInterface
 {
-    /** @var string */
-    private $words;
-
-    /** @var int */
-    private $page;
-
-    /** @var int */
-    private $perPage;
-
-    /** @var string */
-    private $orientation;
-
-    /** @var int */
-    private $widthSmall;
-
-    /** @var string|null */
-    private $repository;
-
-    /** @var Slugify */
-    private $slugify;
+    private string $words;
+    private int $page;
+    private int $perPage;
+    private string $orientation;
+    private int $widthSmall;
+    private ?string $repository;
+    private Slugify $slugify;
 
 
-    /**
-     * {@inheritDoc}
-     */
     public static function set(
         string $words,
         int $page = 1,

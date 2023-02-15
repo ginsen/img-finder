@@ -11,17 +11,10 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class CacheTranslator extends AbstractCache implements TranslatorInterface
 {
-    /** @var CacheItemPoolInterface */
-    private $cache;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-
-    public function __construct(CacheItemPoolInterface $cache, TranslatorInterface $translator)
-    {
-        $this->cache      = $cache;
-        $this->translator = $translator;
+    public function __construct(
+        private CacheItemPoolInterface $cache,
+        private TranslatorInterface $translator
+    ) {
     }
 
 
@@ -32,9 +25,7 @@ class CacheTranslator extends AbstractCache implements TranslatorInterface
 
 
     /**
-     * @param RequestInterface $request
      * @throws
-     * @return RequestInterface
      */
     public function findWord(RequestInterface $request): RequestInterface
     {

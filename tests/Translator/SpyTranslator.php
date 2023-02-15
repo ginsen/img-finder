@@ -9,7 +9,7 @@ use ImgFinder\Translator\TranslatorInterface;
 
 class SpyTranslator implements TranslatorInterface
 {
-    const NAME = 'spy-translator';
+    private const NAME = 'spy-translator';
 
 
     public function name(): string

@@ -5,36 +5,31 @@ declare(strict_types=1);
 namespace ImgFinder\Repository;
 
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use ImgFinder\Payload;
 use ImgFinder\RequestInterface;
 use ImgFinder\Response;
 use ImgFinder\ResponseInterface;
+use Psr\Http\Client\ClientInterface;
+use Symfony\Component\HttpClient\Psr18Client;
 
 class PexelsRepository implements ImgRepositoryInterface
 {
-    const NAME             = 'pexels';
-    const PHOTOS           = 'photos';
-    const SRC              = 'src';
-    const MEDIUM           = 'medium';
-    const PHOTOGRAPHER     = 'photographer';
-    const PHOTOGRAPHER_URL = 'photographer_url';
+    public const NAME             = 'pexels';
+    public const PHOTOS           = 'photos';
+    public const SRC              = 'src';
+    public const MEDIUM           = 'medium';
+    public const PHOTOGRAPHER     = 'photographer';
+    public const PHOTOGRAPHER_URL = 'photographer_url';
+
+    private ClientInterface $httpClient;
 
     use ThumbnailTrait;
 
 
-    /** @var string */
-    private $authorization;
-
-    /** @var ClientInterface */
-    private $httpClient;
-
-
-    public function __construct(string $authorization)
+    public function __construct(
+        private string $authorization)
     {
-        $this->authorization = $authorization;
-        $this->httpClient    = new Client();
+        $this->httpClient = new Psr18Client();
     }
 
 
@@ -53,10 +48,6 @@ class PexelsRepository implements ImgRepositoryInterface
     }
 
 
-    /**
-     * @param RequestInterface $request
-     * @return string
-     */
     private function makeUrl(RequestInterface $request): string
     {
         return sprintf(
@@ -70,30 +61,23 @@ class PexelsRepository implements ImgRepositoryInterface
 
 
     /**
-     * @param string $url
-     * @return iterable|array
+     * @throws
      */
     private function doHttpRequest(string $url): iterable
     {
         try {
-            $res = $this->httpClient->get($url, [
-                'headers' => ['Authorization' => $this->authorization],
-            ]);
+            $request  = $this->httpClient->createRequest('GET', $url);
+            $request  = $request->withHeader('Authorization', $this->authorization);
+            $response = $this->httpClient->sendRequest($request);
+            $body     = $response->getBody()->getContents();
 
-            $json = (string) $res->getBody();
-
-            return (array) \GuzzleHttp\json_decode($json, true);
-        } catch (Exception $exception) {
+            return (array) json_decode($body, true);
+        } catch (Exception) {
             return [];
         }
     }
 
 
-    /**
-     * @param iterable|array   $data
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
     private function createResponse(iterable $data, RequestInterface $request): ResponseInterface
     {
         if (empty($data)) {

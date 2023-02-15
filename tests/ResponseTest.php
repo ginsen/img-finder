@@ -20,6 +20,7 @@ class ResponseTest extends TestCase
         self::assertInstanceOf(ResponseInterface::class, $response);
     }
 
+
     /**
      * @test
      */

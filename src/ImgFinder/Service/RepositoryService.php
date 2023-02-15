@@ -14,15 +14,9 @@ use Psr\Cache\CacheItemPoolInterface;
 class RepositoryService extends AbstractService
 {
     /** @var ImgRepositoryInterface[] */
-    private $repositories;
+    private array $repositories;
 
 
-    /**
-     * @param iterable $repositories
-     * @param CacheItemPoolInterface|null $cache
-     * @throws
-     * @return static
-     */
     public static function init(iterable $repositories, ?CacheItemPoolInterface $cache): self
     {
         $instance = new static();
@@ -45,10 +39,6 @@ class RepositoryService extends AbstractService
     }
 
 
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
     public function findImages(RequestInterface $request): ResponseInterface
     {
         if ($request->hasRepository()) {
@@ -59,10 +49,6 @@ class RepositoryService extends AbstractService
     }
 
 
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
     protected function findInOneRepository(RequestInterface $request): ResponseInterface
     {
         $imgRepo = $this->repositories[$request->repository()];
@@ -71,11 +57,7 @@ class RepositoryService extends AbstractService
     }
 
 
-    /**
-     * @param RequestInterface $request
-     * @return Response|ResponseInterface
-     */
-    protected function findInAllRepositories(RequestInterface $request)
+    protected function findInAllRepositories(RequestInterface $request): ResponseInterface
     {
         $response = Response::fromUrls([]);
 
