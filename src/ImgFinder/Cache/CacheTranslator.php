@@ -35,7 +35,7 @@ class CacheTranslator extends AbstractCache implements TranslatorInterface
         if ($item->isHit()) {
             $requestCache = unserialize($item->get());
 
-            return $requestCache->setRepository($request->repository());
+            return $requestCache->setRepositories($request->repositories());
         }
 
         $newRequest = $this->translator->findWord($request);

@@ -40,7 +40,7 @@ class TranslatorServiceTest extends TestCase
     public function it_should_return_request_when_find_translator()
     {
         $service    = $this->makeService();
-        $request    = Request::set('test');
+        $request    = Request::set('test', ['testRepo']);
         $newRequest = $service->translate($request);
 
         self::assertTrue($request->isEqual($newRequest));

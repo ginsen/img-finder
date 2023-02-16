@@ -13,26 +13,26 @@ class Request implements RequestInterface
     private int $perPage;
     private string $orientation;
     private int $widthSmall;
-    private ?string $repository;
+    private array $repositories;
     private Slugify $slugify;
 
 
     public static function set(
         string $words,
+        array $repositories,
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape',
-        int $widthSmall = 320,
-        string $repository = null
+        int $widthSmall = 320
     ): RequestInterface {
         $instance = new static();
 
-        $instance->words       = $words;
-        $instance->page        = $page;
-        $instance->perPage     = $perPage;
-        $instance->orientation = $orientation;
-        $instance->widthSmall  = $widthSmall;
-        $instance->repository  = $repository;
+        $instance->words        = $words;
+        $instance->page         = $page;
+        $instance->perPage      = $perPage;
+        $instance->orientation  = $orientation;
+        $instance->widthSmall   = $widthSmall;
+        $instance->repositories = $repositories;
 
         return $instance;
     }
@@ -42,11 +42,24 @@ class Request implements RequestInterface
     {
         return self::set(
             $words,
+            $this->repositories(),
             $this->page(),
             $this->perPage(),
             $this->orientation(),
-            $this->widthSmall(),
-            $this->repository()
+            $this->widthSmall()
+        );
+    }
+
+
+    public function setRepositories(array $repositories): RequestInterface
+    {
+        return self::set(
+            $this->words(),
+            $repositories,
+            $this->page(),
+            $this->perPage(),
+            $this->orientation(),
+            $this->widthSmall()
         );
     }
 
@@ -55,11 +68,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
+            $this->repositories(),
             $page,
             $this->perPage(),
             $this->orientation(),
-            $this->widthSmall(),
-            $this->repository()
+            $this->widthSmall()
         );
     }
 
@@ -68,11 +81,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
+            $this->repositories(),
             $this->page(),
             $perPage,
             $this->orientation(),
-            $this->widthSmall(),
-            $this->repository()
+            $this->widthSmall()
         );
     }
 
@@ -81,11 +94,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
+            $this->repositories(),
             $this->page(),
             $this->perPage(),
             $orientation,
-            $this->widthSmall(),
-            $this->repository()
+            $this->widthSmall()
         );
     }
 
@@ -94,24 +107,11 @@ class Request implements RequestInterface
     {
         return self::set(
             $this->words(),
+            $this->repositories(),
             $this->page(),
             $this->perPage(),
             $this->orientation(),
             $width,
-            $this->repository()
-        );
-    }
-
-
-    public function setRepository(?string $repository): RequestInterface
-    {
-        return self::set(
-            $this->words(),
-            $this->page(),
-            $this->perPage(),
-            $this->orientation(),
-            $this->widthSmall(),
-            $repository
         );
     }
 
@@ -134,15 +134,9 @@ class Request implements RequestInterface
     }
 
 
-    public function hasRepository(): bool
+    public function repositories(): array
     {
-        return null !== $this->repository;
-    }
-
-
-    public function repository(): ?string
-    {
-        return $this->repository;
+        return $this->repositories;
     }
 
 
@@ -191,6 +185,7 @@ class Request implements RequestInterface
 
     private function __construct()
     {
-        $this->slugify = new Slugify();
+        $this->repositories = [];
+        $this->slugify    = new Slugify();
     }
 }

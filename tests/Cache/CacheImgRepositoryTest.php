@@ -26,7 +26,7 @@ class CacheImgRepositoryTest extends TestCase
         $imgRepo = $this->getImgRepository();
 
         $imgRepoCache = new CacheImgRepository($cache, $imgRepo);
-        $request      = Request::set('hello world');
+        $request      = Request::set('hello world', ['testRepo']);
         $response     = $imgRepoCache->findImages($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
@@ -45,7 +45,7 @@ class CacheImgRepositoryTest extends TestCase
         $imgRepo = $this->getImgRepository($urls);
 
         $imgRepoCache = new CacheImgRepository($cache, $imgRepo);
-        $request      = Request::set('hello world');
+        $request      = Request::set('hello world', ['testRepo']);
         $response     = $imgRepoCache->findImages($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
@@ -65,7 +65,7 @@ class CacheImgRepositoryTest extends TestCase
         $imgRepo  = $this->getImgRepository($urls);
 
         $imgRepoCache = new CacheImgRepository($cache, $imgRepo);
-        $request      = Request::set('hello world');
+        $request      = Request::set('hello world', ['testRepo']);
 
         self::assertInstanceOf(ResponseInterface::class, $imgRepoCache->findImages($request));
     }

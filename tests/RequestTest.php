@@ -15,7 +15,7 @@ class RequestTest extends TestCase
      */
     public function it_should_make_valid_instance()
     {
-        $request = Request::set('tests');
+        $request = Request::set('tests', ['testRepo']);
 
         self::assertInstanceOf(RequestInterface::class, $request);
     }
@@ -26,7 +26,7 @@ class RequestTest extends TestCase
      */
     public function it_should_return_default_values()
     {
-        $request = Request::set('tests');
+        $request = Request::set('tests', ['testRepo']);
 
         self::assertSame('tests', $request->words());
         self::assertSame(1, $request->page());
@@ -41,7 +41,7 @@ class RequestTest extends TestCase
      */
     public function it_should_allow_set_values()
     {
-        $request1 = Request::set('tests');
+        $request1 = Request::set('tests', ['testRepo']);
         $request2 = $request1->setWords('other phrase');
         $request3 = $request2->setPage(2);
         $request4 = $request3->setPerPage(11);
@@ -70,8 +70,8 @@ class RequestTest extends TestCase
      */
     public function it_should_compare_equals_instances()
     {
-        $request1 = Request::set('tests');
-        $request2 = Request::set('tests');
+        $request1 = Request::set('tests', ['testRepo']);
+        $request2 = Request::set('tests', ['testRepo']);
 
         self::assertFalse($request1->isEqual($request2));
         self::assertTrue($request1->isEqual($request1));
@@ -84,7 +84,7 @@ class RequestTest extends TestCase
      */
     public function it_should_return_words_in_several_formats()
     {
-        $request = Request::set('protección crema solar!');
+        $request = Request::set('protección crema solar!', ['testRepo']);
 
         self::assertSame('protección crema solar!', $request->words());
         self::assertSame('protecci%C3%B3n+crema+solar%21', $request->urlWords());
@@ -97,7 +97,7 @@ class RequestTest extends TestCase
      */
     public function it_should_return_cache_key_in_slug_format()
     {
-        $request = Request::set('tests');
+        $request = Request::set('tests', ['testRepo']);
 
         self::assertSame('landscape-10-320-tests-1', $request->cacheKey());
     }

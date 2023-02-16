@@ -41,29 +41,13 @@ class RepositoryService extends AbstractService
 
     public function findImages(RequestInterface $request): ResponseInterface
     {
-        if ($request->hasRepository()) {
-            return $this->findInOneRepository($request);
-        }
-
-        return $this->findInAllRepositories($request);
-    }
-
-
-    protected function findInOneRepository(RequestInterface $request): ResponseInterface
-    {
-        $imgRepo = $this->repositories[$request->repository()];
-
-        return $imgRepo->findImages($request);
-    }
-
-
-    protected function findInAllRepositories(RequestInterface $request): ResponseInterface
-    {
         $response = Response::fromUrls([]);
 
         foreach ($this->repositories as $imgRepo) {
-            $newResp  = $imgRepo->findImages($request);
-            $response = $response->merge($newResp);
+            if (array_key_exists($imgRepo->name(), $request->repositories())) {
+                $newResp  = $imgRepo->findImages($request);
+                $response = $response->merge($newResp);
+            }
         }
 
         return $response;

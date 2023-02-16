@@ -15,10 +15,10 @@ class PayloadTest extends TestCase
     public function it_should_make_valid_instance()
     {
         $payload = Payload::build(
+            'https://image',
+            'https://thumbnail',
             'foo',
-            'http://foo.io',
-            'http://image',
-            'http://thumbnail'
+            'https://foo.io'
         );
 
         self::assertInstanceOf(Payload::class, $payload);
@@ -31,18 +31,18 @@ class PayloadTest extends TestCase
     public function it_should_render_to_array()
     {
         $payload = Payload::build(
+            'https://image',
+            'https://thumbnail',
             'foo',
-            'http://foo',
-            'http://image',
-            'http://thumbnail'
+            'https://foo'
         );
 
         $data = $payload->render();
 
         self::assertIsArray($data);
         self::assertSame('foo', $data[Payload::AUTHOR]);
-        self::assertSame('http://foo', $data[Payload::URL_AUTHOR]);
-        self::assertSame('http://image', $data[Payload::PHOTOS][Payload::IMAGE]);
-        self::assertSame('http://thumbnail', $data[Payload::PHOTOS][Payload::THUMBNAIL]);
+        self::assertSame('https://foo', $data[Payload::URL_AUTHOR]);
+        self::assertSame('https://image', $data[Payload::MEDIA]);
+        self::assertSame('https://thumbnail', $data[Payload::THUMBNAIL]);
     }
 }

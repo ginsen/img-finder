@@ -36,7 +36,7 @@ class ImgFinderTest extends TestCase
         $config = $this->getConfig();
         $finder = new ImgFinder($config);
 
-        $request  = Request::set('cuidados bebé');
+        $request  = Request::set('cuidados bebé', ['testRepo']);
         $response = $finder->search($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
@@ -72,7 +72,11 @@ class ImgFinderTest extends TestCase
     public function translatorService(): TranslatorService
     {
         $translator = m::mock(TranslatorService::class);
-        $translator->shouldReceive('translate')->andReturn(Request::set('translate request'));
+        $translator
+            ->shouldReceive('translate')
+            ->andReturn(
+                Request::set('translate request', ['testRepo'])
+            );
 
         return $translator;
     }

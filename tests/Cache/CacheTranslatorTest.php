@@ -20,7 +20,7 @@ class CacheTranslatorTest extends TestCase
      */
     public function it_should_translate_without_cache_and_translator_no_find_word()
     {
-        $request    = Request::set('hello world');
+        $request    = Request::set('hello world', ['testRepo']);
         $item       = $this->getItemCache();
         $cache      = $this->getCachePool($item);
         $translator = $this->getTranslator($request);
@@ -37,8 +37,8 @@ class CacheTranslatorTest extends TestCase
      */
     public function it_should_translate_without_cache_and_translator_find_word()
     {
-        $request      = Request::set('hello world');
-        $transRequest = Request::set('hola mundo');
+        $request      = Request::set('hello world', ['testRepo']);
+        $transRequest = Request::set('hola mundo', ['testRepo']);
         $item         = $this->getItemCache();
         $cache        = $this->getCachePool($item);
         $translator   = $this->getTranslator($transRequest);
@@ -55,8 +55,8 @@ class CacheTranslatorTest extends TestCase
      */
     public function it_should_find_request_cache()
     {
-        $request      = Request::set('hello world');
-        $transRequest = Request::set('hola mundo');
+        $request      = Request::set('hello world', ['testRepo']);
+        $transRequest = Request::set('hola mundo', ['testRepo']);
         $translator   = $this->getTranslator($transRequest);
         $item         = $this->getItemCache($transRequest);
         $cache        = $this->getCachePool($item);

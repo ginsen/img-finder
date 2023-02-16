@@ -41,7 +41,7 @@ class RepositoryServiceTest extends TestCase
     public function it_should_return_response_when_request_find_images()
     {
         $service  = $this->makeService();
-        $request  = Request::set('test');
+        $request  = Request::set('test', ['spy-repository']);
         $response = $service->findImages($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
@@ -54,15 +54,7 @@ class RepositoryServiceTest extends TestCase
     public function it_should_return_response_when_request_find_images_from_one_repository()
     {
         $service  = $this->makeService();
-        $request  = Request::set(
-            'test',
-            1,
-            10,
-            'landscape',
-            320,
-            'spy-repository'
-        );
-
+        $request  = Request::set('test', ['spy-repository']);
         $response = $service->findImages($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);

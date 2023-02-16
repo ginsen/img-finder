@@ -8,24 +8,23 @@ class Payload
 {
     public const AUTHOR     = 'author';
     public const URL_AUTHOR = 'url_author';
-    public const PHOTOS     = 'photos';
+    public const MEDIA      = 'media';
     public const THUMBNAIL  = 'thumbnail';
-    public const IMAGE      = 'image';
 
 
-    private string $author;
-    private string $urlAuthor;
-    private string $urlImage;
-    private string $thumbnail;
+    private ?string $author;
+    private ?string $urlAuthor;
+    private string $media;
+    private ?string $thumbnail;
 
 
-    public static function build(string $author, string $urlAuthor, string $urlImage, string $thumbnail): self
+    public static function build(string $media, ?string $thumbnail, ?string $author = null, ?string $urlAuthor = null): self
     {
         $instance = new static();
 
         $instance->author    = $author;
         $instance->urlAuthor = $urlAuthor;
-        $instance->urlImage  = $urlImage;
+        $instance->media     = $media;
         $instance->thumbnail = $thumbnail;
 
         return $instance;
@@ -37,10 +36,8 @@ class Payload
         return [
             self::AUTHOR     => $this->author,
             self::URL_AUTHOR => $this->urlAuthor,
-            self::PHOTOS     => [
-                self::THUMBNAIL => $this->thumbnail,
-                self::IMAGE     => $this->urlImage,
-            ],
+            self::MEDIA      => $this->media,
+            self::THUMBNAIL  => $this->thumbnail,
         ];
     }
 
