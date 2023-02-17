@@ -90,6 +90,7 @@ class PexelsRepository implements ImgRepositoryInterface
         foreach ($data[self::PHOTOS] as $photo) {
             $thumbnail = $this->thumbnail($photo[self::SRC][self::MEDIUM], $request);
             $payload   = Payload::build(
+                $this->name(),
                 $photo[self::SRC][$orientation],
                 $thumbnail,
                 $photo[self::PHOTOGRAPHER] ?: null,

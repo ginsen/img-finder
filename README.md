@@ -198,12 +198,14 @@ echo json_encode($imagesUrls);
  *       "author":     "Rodolfo Quirós",
  *       "url_author": "https://www.pexels.com/@rquiros",
  *       "media":      "https://images.pexels.com/photos/2219118/pexels-photo-2219118.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
- *       "thumbnail":  "https://images.pexels.com/photos/2219118/pexels-photo-2219118.jpeg?auto=compress&cs=tinysrgb&h=350&w=320"
+ *       "thumbnail":  "https://images.pexels.com/photos/2219118/pexels-photo-2219118.jpeg?auto=compress&cs=tinysrgb&h=350&w=320",
+ *       "repository": "pexels"
  *    },{
  *       "author":     "Igor Starkov",
  *       "url_author": "https://unsplash.com/@igorstarkoff",
  *       "media":      "https://images.unsplash.com/photo-1595706480968-ca87913ee9c7?ixid=MXwxODk0OTN8MHwxfHNlYXJjaHwxMHx8YmVhdXR5JTIwZmFjZXxlbnwwfDB8fA&ixlib=rb-1.2.1",
- *       "thumbnail":  "https://images.unsplash.com/photo-1595706480968-ca87913ee9c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxODk0OTN8MHwxfHNlYXJjaHwxMHx8YmVhdXR5JTIwZmFjZXxlbnwwfDB8fA&ixlib=rb-1.2.1&q=80&w=320"
+ *       "thumbnail":  "https://images.unsplash.com/photo-1595706480968-ca87913ee9c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxODk0OTN8MHwxfHNlYXJjaHwxMHx8YmVhdXR5JTIwZmFjZXxlbnwwfDB8fA&ixlib=rb-1.2.1&q=80&w=320",
+ *       "repository": "unsplash"
  *    },
  *    ....
  * ]

@@ -44,7 +44,7 @@ class RepositoryService extends AbstractService
         $response = Response::fromUrls([]);
 
         foreach ($this->repositories as $imgRepo) {
-            if (array_key_exists($imgRepo->name(), $request->repositories())) {
+            if (in_array($imgRepo->name(), $request->repositories())) {
                 $newResp  = $imgRepo->findImages($request);
                 $response = $response->merge($newResp);
             }

@@ -15,6 +15,7 @@ class PayloadTest extends TestCase
     public function it_should_make_valid_instance()
     {
         $payload = Payload::build(
+            'test',
             'https://image',
             'https://thumbnail',
             'foo',
@@ -31,6 +32,7 @@ class PayloadTest extends TestCase
     public function it_should_render_to_array()
     {
         $payload = Payload::build(
+            'test',
             'https://image',
             'https://thumbnail',
             'foo',

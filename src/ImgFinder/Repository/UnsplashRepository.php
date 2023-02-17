@@ -92,6 +92,7 @@ class UnsplashRepository implements ImgRepositoryInterface
         foreach ($data[self::RESULTS] as $photo) {
             $thumbnail = $this->thumbnail($photo[self::URLS][self::THUMB], $request);
             $payload   = Payload::build(
+                $this->name(),
                 $photo[self::URLS][self::RAW],
                 $thumbnail,
                 $photo[self::USER][self::USER_NAME] ?: null,
