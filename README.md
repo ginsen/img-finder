@@ -149,13 +149,14 @@ $request = ImgFinder\Request::set('nature', ['pexels', 'unsplash']);
  * @param int         $page         Page number
  * @param int         $perPage      Items per page
  * @param string      $orientation  Orientation: 'landscape' or 'portrait', default: 'landscape'
+ * @param int         $width        Width of photos, default 1200 pixels
  * @param int         $widthSmall   Width of small photos, default 320 pixels
  */
-$request = ImgFinder\Request::set('nature', ['pexels', 'unsplash'], 1, 10, 'landscape', 320);
+$request = ImgFinder\Request::set('nature', ['pexels', 'unsplash'], 1, 10, 'landscape', 1200, 320);
 ```
 Both requests are the same, **"nature"** is the search term, **1** is the default page, **10** is the number of response
-images for each repository, **"landscape"** is the orientation ('landscape' or 'portrait'), and finally **320** is the 
-width for thumbnails.
+images for each repository, **"landscape"** is the orientation ('landscape' or 'portrait'), width is equal to 1200px and
+finally **320** is the width for thumbnails.
 
 ### Request to search only in one repository
 
@@ -163,7 +164,7 @@ width for thumbnails.
 // Search in pexels repository
 $request = ImgFinder\Request::set('nature', ['pexels']);
 // same as:
-$request = ImgFinder\Request::set('nature', ['pexels'], 1, 10, 'landscape', 320);
+$request = ImgFinder\Request::set('nature', ['pexels'], 1, 10, 'landscape', 1200, 320);
 ```
 
 ### Search

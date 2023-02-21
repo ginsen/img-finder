@@ -12,6 +12,7 @@ interface RequestInterface
      * @param int         $page         Page number
      * @param int         $perPage      Items per page
      * @param string      $orientation  Orientation: 'landscape' or 'portrait', default: 'landscape'
+     * @param int         $width        Width of photos, default 1200 pixels
      * @param int         $widthSmall   Width of small photos, default 320 pixels
      * @return static
      */
@@ -21,6 +22,7 @@ interface RequestInterface
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape',
+        int $width = 1200,
         int $widthSmall = 320
     ): self;
 
@@ -48,7 +50,11 @@ interface RequestInterface
 
     public function orientation(): string;
 
-    public function setWidthSmall(int $width): self;
+    public function setWidth(int $width): self;
+
+    public function setWidthSmall(int $widthSmall): self;
+
+    public function width(): int;
 
     public function widthSmall(): int;
 

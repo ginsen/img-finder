@@ -26,7 +26,7 @@ class UnsplashRepository implements ImgRepositoryInterface
 
     private ClientInterface $httpClient;
 
-    use ThumbnailTrait;
+    use ResizeWidthTrait;
 
 
     public function __construct(
@@ -90,11 +90,10 @@ class UnsplashRepository implements ImgRepositoryInterface
         $response = [];
 
         foreach ($data[self::RESULTS] as $photo) {
-            $thumbnail = $this->thumbnail($photo[self::URLS][self::THUMB], $request);
-            $payload   = Payload::build(
+            $payload = Payload::build(
                 $this->name(),
-                $photo[self::URLS][self::RAW],
-                $thumbnail,
+                $this->resize($photo[self::URLS][self::RAW], $request->width()),
+                $this->resize($photo[self::URLS][self::THUMB], $request->widthSmall()),
                 $photo[self::USER][self::USER_NAME] ?: null,
                 $photo[self::USER][self::LINKS][self::HTML] ?: null
             );

@@ -13,6 +13,7 @@ class Request implements RequestInterface
     private int $perPage;
     private string $orientation;
     private int $widthSmall;
+    private int $width;
     private array $repositories;
     private Slugify $slugify;
 
@@ -23,6 +24,7 @@ class Request implements RequestInterface
         int $page = 1,
         int $perPage = 10,
         string $orientation = 'landscape',
+        int $width = 1200,
         int $widthSmall = 320
     ): RequestInterface {
         $instance = new static();
@@ -32,6 +34,7 @@ class Request implements RequestInterface
         $instance->perPage      = $perPage;
         $instance->orientation  = $orientation;
         $instance->widthSmall   = $widthSmall;
+        $instance->width        = $width;
         $instance->repositories = $repositories;
 
         return $instance;
@@ -46,6 +49,7 @@ class Request implements RequestInterface
             $this->page(),
             $this->perPage(),
             $this->orientation(),
+            $this->width(),
             $this->widthSmall()
         );
     }
@@ -59,6 +63,7 @@ class Request implements RequestInterface
             $this->page(),
             $this->perPage(),
             $this->orientation(),
+            $this->width(),
             $this->widthSmall()
         );
     }
@@ -72,6 +77,7 @@ class Request implements RequestInterface
             $page,
             $this->perPage(),
             $this->orientation(),
+            $this->width(),
             $this->widthSmall()
         );
     }
@@ -85,6 +91,7 @@ class Request implements RequestInterface
             $this->page(),
             $perPage,
             $this->orientation(),
+            $this->width(),
             $this->widthSmall()
         );
     }
@@ -103,7 +110,7 @@ class Request implements RequestInterface
     }
 
 
-    public function setWidthSmall(int $width): RequestInterface
+    public function setWidth(int $width): RequestInterface
     {
         return self::set(
             $this->words(),
@@ -112,6 +119,21 @@ class Request implements RequestInterface
             $this->perPage(),
             $this->orientation(),
             $width,
+            $this->widthSmall(),
+        );
+    }
+
+
+    public function setWidthSmall(int $widthSmall): RequestInterface
+    {
+        return self::set(
+            $this->words(),
+            $this->repositories(),
+            $this->page(),
+            $this->perPage(),
+            $this->orientation(),
+            $this->width(),
+            $widthSmall,
         );
     }
 
@@ -158,6 +180,12 @@ class Request implements RequestInterface
     }
 
 
+    public function width(): int
+    {
+        return $this->width;
+    }
+
+
     public function widthSmall(): int
     {
         return $this->widthSmall;
@@ -173,9 +201,10 @@ class Request implements RequestInterface
     public function cacheKey(): string
     {
         return sprintf(
-            '%s-%d-%d-%s-%d',
+            '%s-%d-%d-%d-%s-%d',
             $this->orientation(),
             $this->perPage(),
+            $this->width(),
             $this->widthSmall(),
             $this->slugWords(),
             $this->page()
@@ -186,6 +215,6 @@ class Request implements RequestInterface
     private function __construct()
     {
         $this->repositories = [];
-        $this->slugify    = new Slugify();
+        $this->slugify      = new Slugify();
     }
 }

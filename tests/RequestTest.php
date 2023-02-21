@@ -99,6 +99,6 @@ class RequestTest extends TestCase
     {
         $request = Request::set('tests', ['testRepo']);
 
-        self::assertSame('landscape-10-320-tests-1', $request->cacheKey());
+        self::assertSame('landscape-10-1200-320-tests-1', $request->cacheKey());
     }
 }

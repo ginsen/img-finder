@@ -23,7 +23,7 @@ class PexelsRepository implements ImgRepositoryInterface
 
     private ClientInterface $httpClient;
 
-    use ThumbnailTrait;
+    use ResizeWidthTrait;
 
 
     public function __construct(
@@ -88,11 +88,10 @@ class PexelsRepository implements ImgRepositoryInterface
         $response    = [];
 
         foreach ($data[self::PHOTOS] as $photo) {
-            $thumbnail = $this->thumbnail($photo[self::SRC][self::MEDIUM], $request);
-            $payload   = Payload::build(
+            $payload = Payload::build(
                 $this->name(),
-                $photo[self::SRC][$orientation],
-                $thumbnail,
+                $this->resize($photo[self::SRC][$orientation], $request->width()),
+                $this->resize($photo[self::SRC][self::MEDIUM], $request->widthSmall()),
                 $photo[self::PHOTOGRAPHER] ?: null,
                 $photo[self::PHOTOGRAPHER_URL] ?: null
             );
